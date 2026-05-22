@@ -13,10 +13,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .navtabs{display:flex;gap:2px;flex:1;flex-wrap:wrap}
 .tab{padding:6px 12px;border-radius:8px;font-size:12px;cursor:pointer;border:none;background:transparent;color:#6b7280;white-space:nowrap}
 .tab.on{background:#eff6ff;color:#1d4ed8;font-weight:600}
-.tab svg{width:13px;height:13px;margin-right:3px;vertical-align:-2px}
 .userpill{display:flex;align-items:center;gap:6px;font-size:12px;color:#6b7280;cursor:pointer;padding:5px 10px;border:1px solid #e5e7eb;border-radius:8px;background:#fff}
 .av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;background:#dbeafe;color:#1d4ed8;flex-shrink:0}
-.nbdot{width:7px;height:7px;border-radius:50%;background:#ef4444;display:none}
+.nbdot{width:7px;height:7px;border-radius:50%;background:#ef4444;display:none;position:absolute;top:-2px;right:-2px}
 .pg{display:none;padding:14px;max-width:1100px;margin:0 auto}
 .pg.on{display:block}
 .card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px 16px;margin-bottom:12px}
@@ -29,15 +28,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .mv{font-size:22px;font-weight:700;color:#111}
 .btn{display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:8px;font-size:12px;cursor:pointer;border:1px solid #e5e7eb;background:#fff;color:#111;font-weight:500}
 .btn:hover{background:#f9fafb}
-.btn svg{width:14px;height:14px}
-.btp{background:#2563eb;color:#fff;border-color:transparent}
-.btp:hover{background:#1d4ed8}
-.btg{background:#16a34a;color:#fff;border-color:transparent}
-.btg:hover{background:#15803d}
-.btd{background:#dc2626;color:#fff;border-color:transparent}
-.btd:hover{background:#b91c1c}
-.btw{background:#d97706;color:#fff;border-color:transparent}
-.btw:hover{background:#b45309}
+.btp{background:#2563eb;color:#fff;border-color:transparent}.btp:hover{background:#1d4ed8}
+.btg{background:#16a34a;color:#fff;border-color:transparent}.btg:hover{background:#15803d}
+.btd{background:#dc2626;color:#fff;border-color:transparent}.btd:hover{background:#b91c1c}
+.btw{background:#d97706;color:#fff;border-color:transparent}.btw:hover{background:#b45309}
 .badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
 .sh-off{background:#f3f4f6;color:#9ca3af}
 .sh-soccer{background:#fef3c7;color:#92400e}
@@ -47,13 +41,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .sh-shed{background:#fee2e2;color:#7f1d1d}
 .sh-other{background:#f1f5f9;color:#334155}
 .rtbl{width:100%;border-collapse:collapse;font-size:11px;table-layout:fixed}
-.rtbl th{text-align:left;padding:6px 6px;background:#f9fafb;color:#6b7280;font-weight:600;font-size:11px;border-bottom:1px solid #e5e7eb}
+.rtbl th{text-align:left;padding:6px;background:#f9fafb;color:#6b7280;font-weight:600;font-size:11px;border-bottom:1px solid #e5e7eb}
 .rtbl td{padding:5px 6px;border-bottom:1px solid #f3f4f6;vertical-align:middle;overflow:hidden}
 .rtbl tr:hover td{background:#fafafa}
 .fg{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
 .fg label{font-size:11px;color:#6b7280;font-weight:500}
 .fg input,.fg select,.fg textarea{padding:7px 10px;border:1px solid #d1d5db;border-radius:8px;background:#fff;color:#111;font-size:13px;font-family:inherit}
-.fg input:focus,.fg select:focus{outline:none;border-color:#3b82f6}
 .fgrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .modal-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:100;align-items:center;justify-content:center;padding:16px}
 .modal-wrap.open{display:flex}
@@ -64,20 +57,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .dot-w{background:#22c55e}.dot-o{background:#94a3b8}.dot-b{background:#f59e0b}
 .clkdisp{font-size:34px;font-weight:700;color:#111;text-align:center;margin:14px 0;font-family:monospace;letter-spacing:2px}
 .pb{display:block;width:100%;padding:13px;font-size:14px;border-radius:10px;cursor:pointer;border:none;font-weight:600;margin-bottom:8px}
-.pin{background:#22c55e;color:#fff}
-.pout{background:#ef4444;color:#fff}
-.pbrk{background:#f59e0b;color:#fff}
+.pcin{background:#22c55e;color:#fff}.pcout{background:#ef4444;color:#fff}.pbrk{background:#f59e0b;color:#fff}
 .hlog{max-height:160px;overflow-y:auto}
 .loge{display:flex;justify-content:space-between;font-size:11px;padding:5px 0;border-bottom:1px solid #f3f4f6;color:#6b7280}
 .avail-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:12px}
-.avail-day{border:1px solid #d1d5db;border-radius:8px;padding:8px 4px;text-align:center;cursor:pointer;font-size:11px;transition:all .15s}
+.avail-day{border:1px solid #d1d5db;border-radius:8px;padding:8px 4px;text-align:center;cursor:pointer;font-size:11px}
 .av-yes{background:#dcfce7;border-color:#16a34a;color:#14532d}
 .av-no{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
 .av-maybe{background:#fef3c7;border-color:#d97706;color:#92400e}
 .swap-req{padding:12px;border:1px solid #e5e7eb;border-radius:10px;margin-bottom:8px}
 .notif-item{display:flex;align-items:flex-start;gap:10px;padding:12px;border-bottom:1px solid #f3f4f6;cursor:pointer}
 .notif-item.unread{background:#eff6ff}
-.nicon{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
 .mysch-day{padding:11px 14px;border:1px solid #e5e7eb;border-radius:10px;margin-bottom:7px;display:flex;align-items:center;justify-content:space-between;background:#fff}
 .day-today{border-color:#3b82f6;background:#eff6ff}
 .exp-opt{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border:1px solid #e5e7eb;border-radius:10px;margin-bottom:8px;cursor:pointer;background:#fff}
@@ -85,101 +75,88 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f5f5f5;padding:20px}
 .login-box{background:#fff;border-radius:16px;padding:32px;width:100%;max-width:380px;border:1px solid #e5e7eb;text-align:center}
 .pin-dots{display:flex;justify-content:center;gap:10px;margin:16px 0}
-.pin-dot{width:14px;height:14px;border-radius:50%;border:2px solid #d1d5db;background:#fff;transition:all .15s}
+.pin-dot{width:14px;height:14px;border-radius:50%;border:2px solid #d1d5db;background:#fff}
 .pin-dot.filled{background:#2563eb;border-color:#2563eb}
 .numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:240px;margin:0 auto}
 .numkey{padding:14px;border:1px solid #e5e7eb;border-radius:10px;font-size:18px;font-weight:600;cursor:pointer;background:#fff;color:#111;text-align:center}
 .numkey:hover{background:#eff6ff;border-color:#3b82f6}
-.staff-picker{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;max-height:300px;overflow-y:auto}
+.staff-picker{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;max-height:320px;overflow-y:auto}
 .staff-pick-btn{padding:10px;border:1px solid #e5e7eb;border-radius:8px;cursor:pointer;background:#fff;font-size:13px;font-weight:500;text-align:center}
 .staff-pick-btn:hover{background:#eff6ff;border-color:#3b82f6}
-.sync-indicator{font-size:10px;color:#22c55e;display:flex;align-items:center;gap:3px}
-.sync-indicator.syncing{color:#f59e0b}
-.sync-indicator.error{color:#ef4444}
+.loading{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:12px;font-size:14px;color:#6b7280}
+.spinner{width:36px;height:36px;border:3px solid #e5e7eb;border-top-color:#3b82f6;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 @media(max-width:600px){
   .g2,.g3,.g4{grid-template-columns:1fr 1fr}
   .fgrow{grid-template-columns:1fr}
   .avail-grid{grid-template-columns:repeat(4,1fr)}
-  .staff-picker{grid-template-columns:1fr 1fr 1fr}
-  .navtabs .tab span{display:none}
 }
 </style>
 </head>
 <body>
 
-<!-- LOGIN SCREEN -->
-<div id="login-screen" class="login-screen">
+<div id="loading" class="loading">
+  <div class="spinner"></div>
+  <div>Connecting to RosterHQ...</div>
+</div>
+
+<div id="login-screen" class="login-screen" style="display:none">
   <div class="login-box">
     <div style="font-size:28px;font-weight:800;color:#2563eb;margin-bottom:4px">RosterHQ</div>
-    <div style="font-size:13px;color:#6b7280;margin-bottom:24px">Churros Team</div>
+    <div style="font-size:13px;color:#6b7280;margin-bottom:6px">Churros Team</div>
+    <div id="conn-status" style="font-size:11px;margin-bottom:20px;color:#22c55e">● Connected to live database</div>
     <div id="login-mode-sel">
-      <button class="btn btp" style="width:100%;justify-content:center;margin-bottom:10px;padding:12px" onclick="showLogin('manager')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-        Manager login
-      </button>
-      <button class="btn btg" style="width:100%;justify-content:center;padding:12px" onclick="showLogin('staff')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-        Staff login
-      </button>
+      <button class="btn btp" style="width:100%;justify-content:center;margin-bottom:10px;padding:12px" onclick="showLoginPanel('manager')">🔒 Manager login</button>
+      <button class="btn btg" style="width:100%;justify-content:center;padding:12px" onclick="showLoginPanel('staff')">👤 Staff login</button>
     </div>
     <div id="login-manager" style="display:none">
       <div style="font-size:14px;font-weight:600;margin-bottom:4px">Enter manager PIN</div>
-      <div style="font-size:12px;color:#6b7280;margin-bottom:12px">4-digit PIN required</div>
-      <div class="pin-dots"><div class="pin-dot" id="pd0"></div><div class="pin-dot" id="pd1"></div><div class="pin-dot" id="pd2"></div><div class="pin-dot" id="pd3"></div></div>
-      <div class="numpad">
-        <button class="numkey" onclick="pinPress('1')">1</button>
-        <button class="numkey" onclick="pinPress('2')">2</button>
-        <button class="numkey" onclick="pinPress('3')">3</button>
-        <button class="numkey" onclick="pinPress('4')">4</button>
-        <button class="numkey" onclick="pinPress('5')">5</button>
-        <button class="numkey" onclick="pinPress('6')">6</button>
-        <button class="numkey" onclick="pinPress('7')">7</button>
-        <button class="numkey" onclick="pinPress('8')">8</button>
-        <button class="numkey" onclick="pinPress('9')">9</button>
-        <button class="numkey" onclick="pinPress('back')" style="font-size:14px">⌫</button>
-        <button class="numkey" onclick="pinPress('0')">0</button>
-        <button class="numkey" onclick="pinPress('clear')" style="font-size:12px">Clear</button>
+      <div class="pin-dots">
+        <div class="pin-dot" id="pd0"></div><div class="pin-dot" id="pd1"></div>
+        <div class="pin-dot" id="pd2"></div><div class="pin-dot" id="pd3"></div>
       </div>
-      <div id="pin-err" style="color:#ef4444;font-size:12px;margin-top:8px;display:none">Incorrect PIN. Try again.</div>
+      <div class="numpad">
+        <button class="numkey" onclick="pinPress('1')">1</button><button class="numkey" onclick="pinPress('2')">2</button><button class="numkey" onclick="pinPress('3')">3</button>
+        <button class="numkey" onclick="pinPress('4')">4</button><button class="numkey" onclick="pinPress('5')">5</button><button class="numkey" onclick="pinPress('6')">6</button>
+        <button class="numkey" onclick="pinPress('7')">7</button><button class="numkey" onclick="pinPress('8')">8</button><button class="numkey" onclick="pinPress('9')">9</button>
+        <button class="numkey" onclick="pinPress('back')">⌫</button><button class="numkey" onclick="pinPress('0')">0</button><button class="numkey" onclick="pinPress('clear')" style="font-size:11px">Clear</button>
+      </div>
+      <div id="pin-err" style="color:#ef4444;font-size:12px;margin-top:8px;display:none">❌ Incorrect PIN</div>
       <button class="btn" style="margin-top:14px;width:100%;justify-content:center" onclick="backToModesel()">← Back</button>
     </div>
     <div id="login-staff" style="display:none">
       <div style="font-size:14px;font-weight:600;margin-bottom:4px">Who are you?</div>
-      <div style="font-size:12px;color:#6b7280;margin-bottom:10px">Select your name to continue</div>
+      <div style="font-size:12px;color:#6b7280;margin-bottom:10px">Select your name</div>
       <div class="staff-picker" id="staff-picker"></div>
       <button class="btn" style="margin-top:12px;width:100%;justify-content:center" onclick="backToModesel()">← Back</button>
     </div>
   </div>
 </div>
 
-<!-- MAIN APP -->
 <div id="main-app" style="display:none">
-<div class="topbar">
-  <div class="logo">Roster<span>HQ</span> <span style="font-size:11px;color:#6b7280;font-weight:400">Churros</span></div>
-  <div class="navtabs" id="navtabs"></div>
-  <div style="display:flex;align-items:center;gap:8px">
-    <div class="sync-indicator" id="sync-ind">
-      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      <span id="sync-text">Live</span>
-    </div>
-    <div style="position:relative;cursor:pointer" onclick="showTab('notif')">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-      <div class="nbdot" id="nbadge"></div>
-    </div>
-    <div class="userpill" onclick="logout()">
-      <div class="av" id="uav">??</div>
-      <span id="uname">User</span>
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+  <div class="topbar">
+    <div class="logo">Roster<span>HQ</span> <span style="font-size:11px;color:#6b7280;font-weight:400">Churros</span></div>
+    <div class="navtabs" id="navtabs"></div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <span style="font-size:11px;color:#22c55e" id="sync-label">● Live</span>
+      <div style="position:relative;cursor:pointer" onclick="showTab('notif')">
+        <span style="font-size:18px">🔔</span>
+        <div class="nbdot" id="nbadge"></div>
+      </div>
+      <div class="userpill" onclick="logout()">
+        <div class="av" id="uav">??</div>
+        <span id="uname">User</span>
+        <span style="font-size:11px">↩</span>
+      </div>
     </div>
   </div>
-</div>
-<div id="pages"></div>
+  <div id="pages"></div>
 </div>
 
 <!-- MODALS -->
 <div class="modal-wrap" id="m-edit">
   <div class="modal">
-    <div class="mtit"><span id="edit-title">Edit shift</span><button class="btn" onclick="closeM('m-edit')" style="padding:4px 8px">✕</button></div>
+    <div class="mtit"><span id="edit-title">Edit shift</span><button class="btn" onclick="closeM('m-edit')">✕</button></div>
     <div class="fgrow">
       <div class="fg"><label>Venue / Task</label><select id="e-venue"></select></div>
       <div class="fg"><label>Start time</label><input type="time" id="e-start" value="05:00"></div>
@@ -195,10 +172,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     </div>
   </div>
 </div>
-
 <div class="modal-wrap" id="m-assign">
   <div class="modal">
-    <div class="mtit">Assign shift <button class="btn" onclick="closeM('m-assign')" style="padding:4px 8px">✕</button></div>
+    <div class="mtit">Assign shift <button class="btn" onclick="closeM('m-assign')">✕</button></div>
     <div class="fgrow">
       <div class="fg"><label>Staff member</label><select id="a-staff"></select></div>
       <div class="fg"><label>Day</label><select id="a-day"></select></div>
@@ -217,10 +193,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     </div>
   </div>
 </div>
-
 <div class="modal-wrap" id="m-addstaff">
   <div class="modal">
-    <div class="mtit">Add team member <button class="btn" onclick="closeM('m-addstaff')" style="padding:4px 8px">✕</button></div>
+    <div class="mtit">Add team member <button class="btn" onclick="closeM('m-addstaff')">✕</button></div>
     <div class="fgrow">
       <div class="fg"><label>First name</label><input id="ns-first" placeholder="Charlotte"></div>
       <div class="fg"><label>Last name</label><input id="ns-last" placeholder="Smith"></div>
@@ -236,21 +211,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 </div>
 
-<!-- FIREBASE SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script>
-const FIREBASE_URL = "https://rostering-app-churros-default-rtdb.asia-southeast1.firebasedatabase.app";
-const MANAGER_PIN = "9999";
+// ── CONFIG ──────────────────────────────────────────
+const DB_URL="https://rostering-app-churros-default-rtdb.asia-southeast1.firebasedatabase.app";
+const MANAGER_PIN="9999";
+// ────────────────────────────────────────────────────
 
-firebase.initializeApp({ databaseURL: FIREBASE_URL });
-const db = firebase.database();
+const DAYS=['Monday 18/5','Tuesday 19/5','Wednesday 20/5','Thursday 21/5','Friday 22/5','Saturday 23/5','Sunday 24/5'];
+const DS=['Mon 18','Tue 19','Wed 20','Thu 21','Fri 22','Sat 23','Sun 24'];
+const VENUES=['NETBALL','SOCCER','BBALL','BASKETBALL','MINDIL','PALM','FORESHORE','SANCTUARY','SPEEDWAY','SHED/cook','CATERING','OFF'];
 
-const DAYS = ['Monday 18/5','Tuesday 19/5','Wednesday 20/5','Thursday 21/5','Friday 22/5','Saturday 23/5','Sunday 24/5'];
-const DS = ['Mon 18','Tue 19','Wed 20','Thu 21','Fri 22','Sat 23','Sun 24'];
-const VENUES = ['NETBALL','SOCCER','BBALL','BASKETBALL','MINDIL','PALM','FORESHORE','SANCTUARY','SPEEDWAY','SHED/cook','CATERING','OFF'];
-
-const DEFAULT_STAFF = [
+const DEFAULT_STAFF=[
   {id:'s1',name:'Charlotte',role:'Supervisor',phone:'0400 111 111',status:'off'},
   {id:'s2',name:'Emma',role:'Staff',phone:'0400 222 222',status:'off'},
   {id:'s3',name:'Chelsea',role:'Staff',phone:'0400 333 333',status:'off'},
@@ -271,7 +242,7 @@ const DEFAULT_STAFF = [
   {id:'s18',name:'Aakriti',role:'Staff',phone:'0400 191 919',status:'off'},
   {id:'s19',name:'Aubrey',role:'Staff',phone:'0400 202 020',status:'off'},
   {id:'s20',name:'Sofia FF',role:'Staff',phone:'0400 212 121',status:'off'},
-  {id:'s21',name:'Lance',role:'Staff',phone:'0400 222 222',status:'off'},
+  {id:'s21',name:'Lance',role:'Staff',phone:'0400 222 111',status:'off'},
   {id:'s22',name:'KB',role:'Staff',phone:'0400 232 323',status:'off'},
   {id:'s23',name:'Cristina',role:'Staff',phone:'0400 242 424',status:'off'},
   {id:'s24',name:'Nicholas',role:'Staff',phone:'0400 252 525',status:'off'},
@@ -283,8 +254,7 @@ const DEFAULT_STAFF = [
   {id:'s30',name:'Winda',role:'Staff',phone:'0400 313 131',status:'off'},
   {id:'s31',name:'Mia',role:'Staff',phone:'0400 323 232',status:'off'},
 ];
-
-const DEFAULT_ROSTER = {
+const DEFAULT_ROSTER={
   s1:{0:'OFF',1:'OFF',2:'NET/BBALL',3:'MINDIL 3:00-10:00',4:'PALM',5:'NETBALL 8:00-4:00',6:'MINDIL 3:00-10:00'},
   s2:{0:'OFF',1:'OFF',2:'OFF',3:'MINDIL 4:30-10:00',4:'OFF',5:'SPEEDWAY 5:30-9:00',6:'FORESHORE 4:45-10:00'},
   s3:{0:'OFF',1:'OFF',2:'SOCCER 5:30-10:00',3:'NETBALL 5:30-10:00',4:'OFF',5:'SANCTUARY 4:45-7:45',6:'FORESHORE 4:45-10:00'},
@@ -318,794 +288,550 @@ const DEFAULT_ROSTER = {
   s31:{0:'OFF',1:'OFF',2:'OFF',3:'MINDIL 5:00-10:00',4:'OFF',5:'OFF',6:'OFF'},
 };
 
-let STAFF = [];
-let ROSTER = {};
-let availability = {};
-let swapRequests = [];
-let notifications = [];
-let clockLog = [];
-let weekHours = 0;
-let weekShifts = 0;
-let clockedIn = false;
-let onBreak = false;
-let clockInTime = null;
-let mode = '';
-let currentStaffId = '';
-let editCtx = null;
-let pinEntry = '';
-let clkTimer = null;
-let dbListeners = [];
-
-function setSyncStatus(s) {
-  const el = document.getElementById('sync-ind');
-  const tx = document.getElementById('sync-text');
-  if (!el) return;
-  el.className = 'sync-indicator' + (s === 'syncing' ? ' syncing' : s === 'error' ? ' error' : '');
-  tx.textContent = s === 'syncing' ? 'Saving...' : s === 'error' ? 'Offline' : 'Live';
+// ── Firebase REST API (no SDK needed) ───────────────
+async function fbRead(path){
+  try{
+    const r=await fetch(`${DB_URL}/${path}.json`);
+    return r.ok?await r.json():null;
+  }catch(e){return null;}
+}
+async function fbWrite(path,val){
+  try{
+    await fetch(`${DB_URL}/${path}.json`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(val)});
+  }catch(e){console.warn('Write failed',e);}
+}
+async function fbPatch(path,val){
+  try{
+    await fetch(`${DB_URL}/${path}.json`,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(val)});
+  }catch(e){console.warn('Patch failed',e);}
+}
+async function fbDelete(path){
+  try{await fetch(`${DB_URL}/${path}.json`,{method:'DELETE'});}catch(e){}
 }
 
-function fbSet(path, val) {
-  setSyncStatus('syncing');
-  return db.ref(path).set(val).then(() => setSyncStatus('live')).catch(() => setSyncStatus('error'));
+// Polling for live sync (every 5s)
+let pollInterval=null;
+function startPolling(){
+  pollInterval=setInterval(async()=>{
+    const [sr,rr,ar,swr,nr]=await Promise.all([
+      fbRead('staff'),fbRead('roster'),fbRead('availability'),fbRead('swaps'),fbRead('notifications')
+    ]);
+    if(sr)STAFF=Object.values(sr).sort((a,b)=>a.name.localeCompare(b.name));
+    if(rr)ROSTER=rr;
+    if(ar)availability=ar;
+    if(swr)swapRequests=Object.values(swr).sort((a,b)=>b.id.localeCompare(a.id));
+    if(nr){notifications=Object.values(nr).sort((a,b)=>b.id.localeCompare(a.id));updateNotifBadge();}
+  },5000);
 }
 
-function fbGet(path) { return db.ref(path).once('value').then(s => s.val()); }
+// ── App state ────────────────────────────────────────
+let STAFF=[],ROSTER={},availability={},swapRequests=[],notifications=[];
+let clockLog=[],weekHours=0,weekShifts=0,clockedIn=false,onBreak=false,clockInTime=null;
+let mode='',currentStaffId='',editCtx=null,pinEntry='',clkTimer=null;
 
-function addDbListener(path, cb) {
-  const ref = db.ref(path);
-  ref.on('value', snap => cb(snap.val()));
-  dbListeners.push(ref);
-}
+async function boot(){
+  // Always show staff from defaults immediately so login works even if Firebase is slow
+  STAFF=DEFAULT_STAFF.slice();
+  ROSTER=JSON.parse(JSON.stringify(DEFAULT_ROSTER));
 
-function removeAllListeners() {
-  dbListeners.forEach(r => r.off());
-  dbListeners = [];
-}
+  try{
+    // Try to load from Firebase
+    const snap=await Promise.race([
+      fbRead('staff'),
+      new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')),6000))
+    ]);
 
-async function initFirebase() {
-  const existing = await fbGet('staff');
-  if (!existing) {
-    await fbSet('staff', Object.fromEntries(DEFAULT_STAFF.map(s => [s.id, s])));
-    await fbSet('roster', DEFAULT_ROSTER);
-    await fbSet('swaps', {});
-    await fbSet('notifications', {});
-    STAFF.forEach(async (s) => {
-      await fbSet('availability/' + s.id, Object.fromEntries(DAYS.map((_, i) => [i, 'yes'])));
-    });
+    if(snap===null){
+      // First time — seed the database
+      document.getElementById('loading').querySelector('div:last-child').textContent='Setting up database...';
+      await fbWrite('staff',Object.fromEntries(DEFAULT_STAFF.map(s=>[s.id,s])));
+      await fbWrite('roster',DEFAULT_ROSTER);
+      await fbWrite('swaps',{});
+      await fbWrite('notifications',{});
+      const avObj={};
+      DEFAULT_STAFF.forEach(s=>{avObj[s.id]=Object.fromEntries(DAYS.map((_,i)=>[i,'yes']));});
+      await fbWrite('availability',avObj);
+    } else if(snap){
+      // Load existing data
+      STAFF=Object.values(snap).sort((a,b)=>a.name.localeCompare(b.name));
+      const [rr,ar,swr,nr]=await Promise.all([
+        fbRead('roster'),fbRead('availability'),fbRead('swaps'),fbRead('notifications')
+      ]);
+      if(rr)ROSTER=rr;
+      if(ar)availability=ar;
+      if(swr)swapRequests=Object.values(swr).sort((a,b)=>b.id.localeCompare(a.id));
+      if(nr)notifications=Object.values(nr).sort((a,b)=>b.id.localeCompare(a.id));
+    }
+    startPolling();
+    document.getElementById('conn-status').textContent='● Connected to live database';
+    document.getElementById('conn-status').style.color='#22c55e';
+  }catch(e){
+    console.warn('Firebase unavailable, running offline',e);
+    document.getElementById('conn-status').textContent='⚠ Offline mode (data not synced)';
+    document.getElementById('conn-status').style.color='#d97706';
   }
+  showLoginScreen();
 }
 
-function sc(v) {
-  if (!v || v === 'OFF') return 'sh-off';
-  const u = v.toUpperCase();
-  if (u.includes('SOCCER')) return 'sh-soccer';
-  if (u.includes('NETBALL')) return 'sh-netball';
-  if (u.includes('BBALL') || u.includes('BASKETBALL')) return 'sh-bball';
-  if (u.includes('CATERING')) return 'sh-catering';
-  if (u.includes('SHED')) return 'sh-shed';
+function showLoginScreen(){
+  document.getElementById('loading').style.display='none';
+  document.getElementById('login-screen').style.display='flex';
+  buildStaffPicker();
+}
+
+// ── Helpers ──────────────────────────────────────────
+function sc(v){
+  if(!v||v==='OFF')return 'sh-off';
+  const u=v.toUpperCase();
+  if(u.includes('SOCCER'))return 'sh-soccer';
+  if(u.includes('NETBALL'))return 'sh-netball';
+  if(u.includes('BBALL')||u.includes('BASKETBALL'))return 'sh-bball';
+  if(u.includes('CATERING'))return 'sh-catering';
+  if(u.includes('SHED'))return 'sh-shed';
   return 'sh-other';
 }
+function venueOpts(sel){return VENUES.map(v=>`<option${sel&&v===sel?' selected':''}>${v}</option>`).join('');}
+function esc(s){return(s||'').replace(/'/g,'&#39;').replace(/\\/g,'\\\\');}
+function page(html){document.getElementById('pages').innerHTML=`<div class="pg on">${html}</div>`;}
+function closeM(id){document.getElementById(id).classList.remove('open');}
+function openM(id){document.getElementById(id).classList.add('open');}
 
-function venueOpts(sel) {
-  return VENUES.map(v => `<option${sel===v?' selected':''}>${v}</option>`).join('');
-}
+// ── Navigation ───────────────────────────────────────
+const MGR_TABS=[{id:'roster',label:'📋 Roster'},{id:'staff',label:'👥 Staff'},{id:'swap',label:'🔄 Swaps'},{id:'reports',label:'📊 Reports'},{id:'export',label:'📤 Export'},{id:'notif',label:'🔔 Alerts'}];
+const STF_TABS=[{id:'mysch',label:'📅 My Schedule'},{id:'timeclock',label:'⏱ Clock'},{id:'avail',label:'✅ Availability'},{id:'myswap',label:'🔄 Swaps'},{id:'notif',label:'🔔 Alerts'}];
 
-function esc(s) { return (s||'').replace(/'/g, '&#39;'); }
-
-const MANAGER_TABS = [{id:'roster',label:'Roster'},{id:'staff',label:'Staff'},{id:'swap',label:'Swaps'},{id:'reports',label:'Reports'},{id:'export',label:'Export'},{id:'notif',label:'Alerts'}];
-const STAFF_TABS = [{id:'mysch',label:'My Schedule'},{id:'timeclock',label:'Time Clock'},{id:'avail',label:'Availability'},{id:'myswap',label:'Swap Shifts'},{id:'notif',label:'Alerts'}];
-
-function buildNav() {
-  const tabs = mode === 'manager' ? MANAGER_TABS : STAFF_TABS;
-  document.getElementById('navtabs').innerHTML = tabs.map(t =>
-    `<button class="tab" id="tab-${t.id}" onclick="showTab('${t.id}')">${t.label}</button>`
-  ).join('');
+function buildNav(){
+  const tabs=mode==='manager'?MGR_TABS:STF_TABS;
+  document.getElementById('navtabs').innerHTML=tabs.map(t=>`<button class="tab" id="tab-${t.id}" onclick="showTab('${t.id}')">${t.label}</button>`).join('');
   updateNotifBadge();
 }
 
-function showTab(id) {
-  document.querySelectorAll('.tab').forEach(b => b.classList.remove('on'));
-  const t = document.getElementById('tab-' + id);
-  if (t) t.classList.add('on');
-  const pg = document.getElementById('pages');
-  pg.innerHTML = '';
-  if (id === 'roster') renderRoster();
-  else if (id === 'staff') renderStaff();
-  else if (id === 'swap' || id === 'myswap') renderSwap();
-  else if (id === 'reports') renderReports();
-  else if (id === 'export') renderExport();
-  else if (id === 'notif') renderNotif();
-  else if (id === 'timeclock') renderTimeClock();
-  else if (id === 'avail') renderAvail();
-  else if (id === 'mysch') renderMySchedule();
+function showTab(id){
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+  const t=document.getElementById('tab-'+id);if(t)t.classList.add('on');
+  document.getElementById('pages').innerHTML='';
+  const map={roster:renderRoster,staff:renderStaff,swap:renderSwap,myswap:renderSwap,reports:renderReports,export:renderExport,notif:renderNotif,timeclock:renderTimeClock,avail:renderAvail,mysch:renderMySchedule};
+  if(map[id])map[id]();
 }
 
-function page(html) {
-  document.getElementById('pages').innerHTML = `<div class="pg on">${html}</div>`;
-}
-
-function closeM(id) { document.getElementById(id).classList.remove('open'); }
-function openM(id) { document.getElementById(id).classList.add('open'); }
-
-function renderRoster() {
-  const head = `<th style="width:90px">Staff</th>` + DS.map(d => `<th>${d}</th>`).join('');
-  const body = STAFF.map(s => {
-    const cells = DAYS.map((_, di) => {
-      const v = (ROSTER[s.id] && ROSTER[s.id][di]) || 'OFF';
-      const av = availability[s.id] && availability[s.id][di];
-      const avBorder = av === 'no' ? 'border:1px solid #ef4444;' : av === 'maybe' ? 'border:1px solid #f59e0b;' : '';
-      return `<td><span class="badge ${sc(v)}" style="cursor:pointer;${avBorder}" onclick="openEdit('${s.id}',${di},'${esc(v)}')">${v}</span></td>`;
+// ── Roster ───────────────────────────────────────────
+function renderRoster(){
+  const head=`<th style="width:85px">Staff</th>`+DS.map(d=>`<th>${d}</th>`).join('');
+  const body=STAFF.map(s=>{
+    const cells=DAYS.map((_,di)=>{
+      const v=(ROSTER[s.id]&&ROSTER[s.id][di])||'OFF';
+      return`<td><span class="badge ${sc(v)}" style="cursor:pointer" onclick="openEdit('${s.id}',${di},'${esc(v)}')">${v}</span></td>`;
     }).join('');
-    return `<tr><td style="font-weight:600;font-size:11px;white-space:nowrap">${s.name}</td>${cells}</tr>`;
+    return`<tr><td style="font-weight:600;font-size:11px;white-space:nowrap">${s.name}</td>${cells}</tr>`;
   }).join('');
-  page(`
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap">
-      <span style="font-size:14px;font-weight:600">Week of Mon 18 – Sun 24 May</span>
-      <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:#6b7280">
-        <span style="display:inline-block;width:10px;height:10px;border:1px solid #ef4444;border-radius:2px"></span>Unavailable
-        <span style="display:inline-block;width:10px;height:10px;border:1px solid #f59e0b;border-radius:2px;margin-left:8px"></span>Maybe
-      </div>
-      <div style="margin-left:auto;display:flex;gap:6px;flex-wrap:wrap">
-        <button class="btn btw" onclick="sendSMS()">📱 SMS all</button>
-        <button class="btn btp" onclick="publishRoster()">📤 Publish</button>
-        <button class="btn btg" onclick="openAssignModal()">+ Assign shift</button>
-      </div>
+  page(`<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+    <span style="font-size:14px;font-weight:600">Week of Mon 18 – Sun 24 May</span>
+    <div style="margin-left:auto;display:flex;gap:6px;flex-wrap:wrap">
+      <button class="btn btw" onclick="sendSMS()">📱 SMS all</button>
+      <button class="btn btp" onclick="publishRoster()">📤 Publish</button>
+      <button class="btn btg" onclick="openM('m-assign')">+ Assign shift</button>
     </div>
-    <div style="overflow-x:auto;border-radius:12px;border:1px solid #e5e7eb">
-      <table class="rtbl"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>
-    </div>
-    <div style="margin-top:8px;font-size:11px;color:#9ca3af">Tap any shift to edit · Changes sync live to all devices</div>
-  `);
-  document.getElementById('e-venue').innerHTML = venueOpts();
-  document.getElementById('a-venue').innerHTML = venueOpts();
-  document.getElementById('a-staff').innerHTML = STAFF.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
-  document.getElementById('a-day').innerHTML = DAYS.map(d => `<option>${d}</option>`).join('');
+  </div>
+  <div style="overflow-x:auto;border-radius:12px;border:1px solid #e5e7eb">
+    <table class="rtbl"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>
+  </div>
+  <div style="margin-top:8px;font-size:11px;color:#9ca3af">Tap any shift to edit · Changes sync every 5s</div>`);
+  document.getElementById('e-venue').innerHTML=venueOpts();
+  document.getElementById('a-venue').innerHTML=venueOpts();
+  document.getElementById('a-staff').innerHTML=STAFF.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');
+  document.getElementById('a-day').innerHTML=DAYS.map(d=>`<option>${d}</option>`).join('');
 }
 
-function openEdit(sid, di, val) {
-  editCtx = {sid, di};
-  const s = STAFF.find(x => x.id === sid);
-  document.getElementById('edit-title').textContent = `${s.name} — ${DS[di]}`;
-  document.getElementById('e-venue').innerHTML = venueOpts(val.split(' ')[0]);
+function openEdit(sid,di,val){
+  editCtx={sid,di};
+  document.getElementById('edit-title').textContent=`${STAFF.find(x=>x.id===sid).name} — ${DS[di]}`;
+  document.getElementById('e-venue').innerHTML=venueOpts(val.split(' ')[0]);
   openM('m-edit');
 }
 
-function saveEdit() {
-  if (!editCtx) return;
-  const {sid, di} = editCtx;
-  const v = document.getElementById('e-venue').value;
-  const s = document.getElementById('e-start').value;
-  const e = document.getElementById('e-end').value;
-  const label = v === 'OFF' ? 'OFF' : `${v} ${s}-${e}`;
-  if (!ROSTER[sid]) ROSTER[sid] = {};
-  ROSTER[sid][di] = label;
-  fbSet(`roster/${sid}/${di}`, label);
-  addNotification('📋', `Shift updated: ${STAFF.find(x=>x.id===sid).name} on ${DS[di]} → ${label}`);
-  closeM('m-edit');
-  renderRoster();
+function saveEdit(){
+  if(!editCtx)return;
+  const{sid,di}=editCtx;
+  const v=document.getElementById('e-venue').value;
+  const s=document.getElementById('e-start').value;
+  const e=document.getElementById('e-end').value;
+  const label=v==='OFF'?'OFF':`${v} ${s}-${e}`;
+  if(!ROSTER[sid])ROSTER[sid]={};
+  ROSTER[sid][di]=label;
+  fbWrite(`roster/${sid}/${di}`,label);
+  addNotification('📋',`Shift updated: ${STAFF.find(x=>x.id===sid).name} — ${DS[di]}`);
+  closeM('m-edit');renderRoster();
 }
 
-function removeShift() {
-  if (!editCtx) return;
-  const {sid, di} = editCtx;
-  ROSTER[sid][di] = 'OFF';
-  fbSet(`roster/${sid}/${di}`, 'OFF');
-  closeM('m-edit');
-  renderRoster();
+function removeShift(){
+  if(!editCtx)return;
+  const{sid,di}=editCtx;
+  if(!ROSTER[sid])ROSTER[sid]={};
+  ROSTER[sid][di]='OFF';
+  fbWrite(`roster/${sid}/${di}`,'OFF');
+  closeM('m-edit');renderRoster();
 }
 
-function openAssignModal() { openM('m-assign'); }
-
-function saveAssign() {
-  const sid = document.getElementById('a-staff').value;
-  const day = document.getElementById('a-day').value;
-  const di = DAYS.indexOf(day);
-  const v = document.getElementById('a-venue').value;
-  const s = document.getElementById('a-start').value;
-  const e = document.getElementById('a-end').value;
-  if (!ROSTER[sid]) ROSTER[sid] = {};
-  const label = v === 'OFF' ? 'OFF' : `${v} ${s}-${e}`;
-  ROSTER[sid][di] = label;
-  fbSet(`roster/${sid}/${di}`, label);
-  const name = STAFF.find(x => x.id === sid).name;
-  addNotification('📋', `Shift assigned: ${name} on ${DS[di]} — ${label}`);
-  closeM('m-assign');
-  renderRoster();
+function saveAssign(){
+  const sid=document.getElementById('a-staff').value;
+  const di=DAYS.indexOf(document.getElementById('a-day').value);
+  const v=document.getElementById('a-venue').value;
+  const s=document.getElementById('a-start').value;
+  const e=document.getElementById('a-end').value;
+  if(!ROSTER[sid])ROSTER[sid]={};
+  const label=v==='OFF'?'OFF':`${v} ${s}-${e}`;
+  ROSTER[sid][di]=label;
+  fbWrite(`roster/${sid}/${di}`,label);
+  addNotification('📋',`Shift assigned: ${STAFF.find(x=>x.id===sid).name} — ${DS[di]}`);
+  closeM('m-assign');renderRoster();
 }
 
-function publishRoster() {
-  addNotification('📤', 'Roster published! All staff have been notified.');
-  alert('✅ Roster published! All staff can now see their updated shifts.');
-}
+function publishRoster(){addNotification('📤','Roster published!');alert('✅ Roster published! All staff can see their shifts.');}
+function sendSMS(){addNotification('📱','SMS reminders sent.');alert('📱 SMS reminders sent to all staff!');}
 
-function sendSMS() {
-  addNotification('📱', 'SMS reminders sent to all rostered staff.');
-  alert('📱 SMS reminders sent to all staff with their shift details!');
-}
-
-function renderStaff() {
-  const rows = STAFF.map(s => {
-    const dot = s.status === 'working' ? 'dot-w' : s.status === 'break' ? 'dot-b' : 'dot-o';
-    const stxt = s.status === 'working' ? 'Working' : s.status === 'break' ? 'On break' : 'Off';
-    const shifts = Object.values(ROSTER[s.id] || {}).filter(v => v && v !== 'OFF').length;
-    return `<div class="srow">
+// ── Staff ────────────────────────────────────────────
+function renderStaff(){
+  page(`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+    <span class="sec" style="margin:0">Team (${STAFF.length})</span>
+    <button class="btn btg" onclick="openM('m-addstaff')">+ Add member</button>
+  </div>`+STAFF.map(s=>{
+    const dot=s.status==='working'?'dot-w':s.status==='break'?'dot-b':'dot-o';
+    const stxt=s.status==='working'?'Working':s.status==='break'?'On break':'Off';
+    const shifts=Object.values(ROSTER[s.id]||{}).filter(v=>v&&v!=='OFF').length;
+    return`<div class="srow">
       <div style="display:flex;align-items:center;gap:10px">
         <div class="av">${s.name.slice(0,2).toUpperCase()}</div>
-        <div>
-          <div style="font-size:13px;font-weight:600">${s.name}</div>
-          <div style="font-size:11px;color:#6b7280">${s.role} · ${s.phone} · ${shifts} shifts</div>
-        </div>
+        <div><div style="font-size:13px;font-weight:600">${s.name}</div>
+        <div style="font-size:11px;color:#6b7280">${s.role} · ${s.phone} · ${shifts} shifts</div></div>
       </div>
       <div style="display:flex;align-items:center;gap:8px">
-        <span class="sdot ${dot}"></span>
-        <span style="font-size:11px;color:#6b7280">${stxt}</span>
+        <span class="sdot ${dot}"></span><span style="font-size:11px;color:#6b7280">${stxt}</span>
         <button class="btn btd" style="padding:4px 8px;font-size:11px" onclick="removeMember('${s.id}')">✕</button>
       </div>
-    </div>`;
-  }).join('');
-  page(`
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-      <span class="sec" style="margin:0">Team members (${STAFF.length})</span>
-      <button class="btn btg" onclick="openM('m-addstaff')">+ Add member</button>
-    </div>
-    <div>${rows}</div>
-  `);
+    </div>`;}).join(''));
 }
 
-function doAddStaff() {
-  const f = document.getElementById('ns-first').value.trim();
-  const l = document.getElementById('ns-last').value.trim();
-  const r = document.getElementById('ns-role').value;
-  const p = document.getElementById('ns-phone').value.trim();
-  if (!f) return alert('Please enter a first name.');
-  const id = 's' + Date.now();
-  const member = {id, name: f + (l ? ' ' + l : ''), role: r, phone: p, status: 'off'};
-  STAFF.push(member);
-  ROSTER[id] = {};
-  availability[id] = Object.fromEntries(DAYS.map((_, i) => [i, 'yes']));
-  fbSet('staff/' + id, member);
-  fbSet('roster/' + id, {});
-  fbSet('availability/' + id, Object.fromEntries(DAYS.map((_, i) => [i, 'yes'])));
-  addNotification('👤', `${member.name} added to the team`);
-  closeM('m-addstaff');
+function doAddStaff(){
+  const f=document.getElementById('ns-first').value.trim();
+  const l=document.getElementById('ns-last').value.trim();
+  if(!f)return alert('Please enter a first name.');
+  const id='s'+Date.now();
+  const member={id,name:f+(l?' '+l:''),role:document.getElementById('ns-role').value,phone:document.getElementById('ns-phone').value.trim(),status:'off'};
+  STAFF.push(member);ROSTER[id]={};
+  availability[id]=Object.fromEntries(DAYS.map((_,i)=>[i,'yes']));
+  fbWrite('staff/'+id,member);fbWrite('roster/'+id,{});fbWrite('availability/'+id,availability[id]);
+  addNotification('👤',`${member.name} added`);closeM('m-addstaff');renderStaff();
+}
+
+function removeMember(sid){
+  if(!confirm('Remove this team member?'))return;
+  const i=STAFF.findIndex(s=>s.id===sid);
+  if(i>-1){fbDelete('staff/'+sid);fbDelete('roster/'+sid);STAFF.splice(i,1);delete ROSTER[sid];}
   renderStaff();
 }
 
-function removeMember(sid) {
-  if (!confirm('Remove this team member?')) return;
-  const i = STAFF.findIndex(s => s.id === sid);
-  if (i > -1) {
-    db.ref('staff/' + sid).remove();
-    db.ref('roster/' + sid).remove();
-    STAFF.splice(i, 1);
-    delete ROSTER[sid];
-  }
-  renderStaff();
-}
-
-function renderSwap() {
-  const isM = mode === 'manager';
-  const mySwaps = isM ? swapRequests : swapRequests.filter(r => r.fromId === currentStaffId || r.toId === currentStaffId);
-  const rows = mySwaps.map(r => `
-    <div class="swap-req">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
-        <div><span style="font-weight:600">${r.from}</span><span style="color:#6b7280"> → ${r.to}</span>
-        <span class="badge" style="margin-left:6px;background:${r.status==='approved'?'#dcfce7':r.status==='denied'?'#fee2e2':'#fef3c7'};color:${r.status==='approved'?'#14532d':r.status==='denied'?'#7f1d1d':'#92400e'}">${r.status}</span></div>
-        <span style="font-size:11px;color:#9ca3af">${r.ts}</span>
-      </div>
-      <div style="font-size:12px;color:#6b7280;margin-bottom:8px">${r.day} · <span class="badge ${sc(r.shift)}">${r.shift}</span></div>
-      ${r.reason ? `<div style="font-size:11px;color:#6b7280;margin-bottom:8px">Reason: ${r.reason}</div>` : ''}
-      ${r.status === 'pending' ? `<div style="display:flex;gap:6px">
-        ${isM ? `<button class="btn btg" style="font-size:11px" onclick="approveSwap('${r.id}')">✓ Approve</button>
-        <button class="btn btd" style="font-size:11px" onclick="denySwap('${r.id}')">✕ Deny</button>` : ''}
-        ${!isM && r.fromId === currentStaffId ? `<button class="btn btd" style="font-size:11px" onclick="denySwap('${r.id}')">Cancel request</button>` : ''}
-      </div>` : ''}
-    </div>`).join('');
-
-  const cs = STAFF.find(s => s.id === currentStaffId);
-  const requestForm = !isM && cs ? `
-    <div class="card">
-      <div class="sec">Request a swap</div>
-      <div class="fgrow">
-        <div class="fg"><label>My shift day</label><select id="sw-day">${DAYS.map(d=>`<option>${d}</option>`).join('')}</select></div>
-        <div class="fg"><label>Swap with</label><select id="sw-with">${STAFF.filter(s=>s.id!==currentStaffId).map(s=>`<option value="${s.id}">${s.name}</option>`).join('')}</select></div>
-      </div>
-      <div class="fg"><label>Reason</label><input id="sw-reason" placeholder="e.g. Family commitment"></div>
-      <div style="margin-top:8px"><button class="btn btp" onclick="submitSwap()">📤 Submit request</button></div>
-    </div>` : '';
-
-  page(`
-    <div class="sec">${isM ? 'All swap requests' : 'Swap shifts'}</div>
-    ${requestForm}
-    <div class="card">
-      <div class="sec">${isM ? 'Pending & recent requests' : 'My requests'}</div>
-      ${rows || '<div style="font-size:12px;color:#9ca3af">No swap requests yet.</div>'}
+// ── Swaps ────────────────────────────────────────────
+function renderSwap(){
+  const isM=mode==='manager';
+  const list=isM?swapRequests:swapRequests.filter(r=>r.fromId===currentStaffId||r.toId===currentStaffId);
+  const rows=list.map(r=>`<div class="swap-req">
+    <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+      <div><b>${r.from}</b> → ${r.to}
+      <span class="badge" style="margin-left:6px;background:${r.status==='approved'?'#dcfce7':r.status==='denied'?'#fee2e2':'#fef3c7'};color:${r.status==='approved'?'#14532d':r.status==='denied'?'#7f1d1d':'#92400e'}">${r.status}</span></div>
+      <span style="font-size:11px;color:#9ca3af">${r.ts}</span>
     </div>
-  `);
+    <div style="font-size:12px;color:#6b7280;margin-bottom:8px">${r.day} · <span class="badge ${sc(r.shift)}">${r.shift}</span></div>
+    ${r.status==='pending'?`<div style="display:flex;gap:6px">
+      ${isM?`<button class="btn btg" style="font-size:11px" onclick="approveSwap('${r.id}')">✓ Approve</button>
+      <button class="btn btd" style="font-size:11px" onclick="denySwap('${r.id}')">✕ Deny</button>`:''}
+      ${!isM&&r.fromId===currentStaffId?`<button class="btn btd" style="font-size:11px" onclick="denySwap('${r.id}')">Cancel</button>`:''}
+    </div>`:''}
+  </div>`).join('');
+  const cs=STAFF.find(s=>s.id===currentStaffId);
+  const form=!isM&&cs?`<div class="card"><div class="sec">Request a swap</div>
+    <div class="fgrow">
+      <div class="fg"><label>My shift day</label><select id="sw-day">${DAYS.map(d=>`<option>${d}</option>`).join('')}</select></div>
+      <div class="fg"><label>Swap with</label><select id="sw-with">${STAFF.filter(s=>s.id!==currentStaffId).map(s=>`<option value="${s.id}">${s.name}</option>`).join('')}</select></div>
+    </div>
+    <div class="fg"><label>Reason</label><input id="sw-reason" placeholder="e.g. Family commitment"></div>
+    <button class="btn btp" style="margin-top:8px" onclick="submitSwap()">📤 Submit</button>
+  </div>`:'';
+  page(`<div class="sec">${isM?'All swap requests':'Swap shifts'}</div>${form}
+    <div class="card"><div class="sec">Requests</div>
+    ${rows||'<div style="font-size:12px;color:#9ca3af">No swap requests yet.</div>'}</div>`);
 }
 
-function approveSwap(id) {
-  const r = swapRequests.find(x => x.id === id);
-  if (r) {
-    r.status = 'approved';
-    fbSet('swaps/' + id + '/status', 'approved');
-    const fromStaff = STAFF.find(s => s.id === r.fromId);
-    const toStaff = STAFF.find(s => s.id === r.toId);
-    if (fromStaff && toStaff) {
-      const di = DAYS.indexOf(r.day);
-      const fromShift = ROSTER[r.fromId] && ROSTER[r.fromId][di] || 'OFF';
-      const toShift = ROSTER[r.toId] && ROSTER[r.toId][di] || 'OFF';
-      if (!ROSTER[r.fromId]) ROSTER[r.fromId] = {};
-      if (!ROSTER[r.toId]) ROSTER[r.toId] = {};
-      ROSTER[r.fromId][di] = toShift;
-      ROSTER[r.toId][di] = fromShift;
-      fbSet(`roster/${r.fromId}/${di}`, toShift);
-      fbSet(`roster/${r.toId}/${di}`, fromShift);
-    }
-    addNotification('✅', `Swap approved: ${r.from} ↔ ${r.to} on ${r.day}`);
-  }
-  renderSwap();
+function approveSwap(id){
+  const r=swapRequests.find(x=>x.id===id);if(!r)return;
+  r.status='approved';fbWrite('swaps/'+id+'/status','approved');
+  const di=DAYS.indexOf(r.day);
+  const fs=(ROSTER[r.fromId]&&ROSTER[r.fromId][di])||'OFF';
+  const ts=(ROSTER[r.toId]&&ROSTER[r.toId][di])||'OFF';
+  if(!ROSTER[r.fromId])ROSTER[r.fromId]={};if(!ROSTER[r.toId])ROSTER[r.toId]={};
+  ROSTER[r.fromId][di]=ts;ROSTER[r.toId][di]=fs;
+  fbWrite(`roster/${r.fromId}/${di}`,ts);fbWrite(`roster/${r.toId}/${di}`,fs);
+  addNotification('✅',`Swap approved: ${r.from} ↔ ${r.to}`);renderSwap();
+}
+function denySwap(id){
+  const r=swapRequests.find(x=>x.id===id);if(r){r.status='denied';fbWrite('swaps/'+id+'/status','denied');}renderSwap();
+}
+function submitSwap(){
+  const day=document.getElementById('sw-day').value;
+  const di=DAYS.indexOf(day);
+  const cs=STAFF.find(s=>s.id===currentStaffId);
+  const toId=document.getElementById('sw-with').value;
+  const toStaff=STAFF.find(s=>s.id===toId);
+  const id='sw'+Date.now();
+  const req={id,fromId:currentStaffId,from:cs.name,toId,to:toStaff.name,day,shift:(ROSTER[currentStaffId]&&ROSTER[currentStaffId][di])||'OFF',reason:document.getElementById('sw-reason').value,status:'pending',ts:new Date().toLocaleTimeString()};
+  swapRequests.unshift(req);fbWrite('swaps/'+id,req);
+  addNotification('🔄',`${cs.name} requested a swap with ${toStaff.name}`);renderSwap();
 }
 
-function denySwap(id) {
-  const r = swapRequests.find(x => x.id === id);
-  if (r) { r.status = 'denied'; fbSet('swaps/' + id + '/status', 'denied'); }
-  renderSwap();
-}
-
-function submitSwap() {
-  const day = document.getElementById('sw-day').value;
-  const di = DAYS.indexOf(day);
-  const cs = STAFF.find(s => s.id === currentStaffId);
-  const myShift = (ROSTER[currentStaffId] && ROSTER[currentStaffId][di]) || 'OFF';
-  const toId = document.getElementById('sw-with').value;
-  const toStaff = STAFF.find(s => s.id === toId);
-  const reason = document.getElementById('sw-reason').value;
-  const id = 'sw' + Date.now();
-  const req = {id, fromId: currentStaffId, from: cs.name, toId, to: toStaff.name, day, shift: myShift, reason, status: 'pending', ts: new Date().toLocaleTimeString()};
-  swapRequests.unshift(req);
-  fbSet('swaps/' + id, req);
-  addNotification('🔄', `${cs.name} requested a swap with ${toStaff.name} for ${DS[di]}`);
-  renderSwap();
-}
-
-function renderReports() {
-  let total = 0, offC = 0, staffed = new Set(), venues = {};
-  DAYS.forEach((_, di) => {
-    STAFF.forEach(s => {
-      const v = (ROSTER[s.id] && ROSTER[s.id][di]) || 'OFF';
-      if (v === 'OFF') { offC++; return; }
-      total++; staffed.add(s.id);
-      const k = v.replace(/\s+[\d:.\-\/]+.*/,'').trim();
-      venues[k] = (venues[k] || 0) + 1;
-    });
-  });
-  const vRows = Object.entries(venues).sort((a,b)=>b[1]-a[1]).slice(0,10).map(([k,v]) =>
-    `<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid #f3f4f6;font-size:12px">
-      <span>${k}</span>
-      <div style="display:flex;align-items:center;gap:8px">
-        <div style="width:${Math.round(v/total*100)}px;max-width:100px;height:6px;background:#3b82f6;border-radius:3px"></div>
-        <span style="font-weight:600;min-width:20px;text-align:right">${v}</span>
-      </div>
-    </div>`).join('');
-  const sRows = STAFF.map(s => {
-    const shifts = Object.values(ROSTER[s.id] || {}).filter(v => v && v !== 'OFF').length;
-    return `<div style="display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid #f3f4f6;font-size:12px">
+// ── Reports ──────────────────────────────────────────
+function renderReports(){
+  let total=0,offC=0,staffed=new Set(),venues={};
+  DAYS.forEach((_,di)=>{STAFF.forEach(s=>{
+    const v=(ROSTER[s.id]&&ROSTER[s.id][di])||'OFF';
+    if(v==='OFF'){offC++;return;}total++;staffed.add(s.id);
+    const k=v.replace(/\s+[\d:.\-\/]+.*/,'').trim();venues[k]=(venues[k]||0)+1;
+  });});
+  const vRows=Object.entries(venues).sort((a,b)=>b[1]-a[1]).slice(0,10).map(([k,v])=>
+    `<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #f3f4f6;font-size:12px">
+      <span>${k}</span><div style="display:flex;align-items:center;gap:8px">
+      <div style="width:${Math.round(v/Math.max(total,1)*100)}px;max-width:100px;height:6px;background:#3b82f6;border-radius:3px"></div><b>${v}</b></div></div>`).join('');
+  const sRows=STAFF.map(s=>{const sh=Object.values(ROSTER[s.id]||{}).filter(v=>v&&v!=='OFF').length;
+    return`<div style="display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid #f3f4f6;font-size:12px">
       <span style="min-width:80px;font-weight:500">${s.name}</span>
-      <div style="flex:1;height:6px;background:#f3f4f6;border-radius:3px;overflow:hidden">
-        <div style="width:${Math.round(shifts/7*100)}%;height:100%;background:#2563eb"></div>
-      </div>
-      <span style="font-weight:600;min-width:16px;text-align:right">${shifts}</span>
-    </div>`;
-  }).join('');
-  const dayBars = DS.map((d, di) => {
-    const c = STAFF.filter(s => ROSTER[s.id] && ROSTER[s.id][di] && ROSTER[s.id][di] !== 'OFF').length;
-    const pct = Math.round(c / Math.max(STAFF.length,1) * 100);
-    return `<div style="flex:1;text-align:center">
-      <div style="font-size:10px;color:#6b7280;margin-bottom:4px">${d}</div>
+      <div style="flex:1;height:6px;background:#f3f4f6;border-radius:3px;overflow:hidden"><div style="width:${Math.round(sh/7*100)}%;height:100%;background:#2563eb"></div></div>
+      <b>${sh}</b></div>`;}).join('');
+  const dayBars=DS.map((d,di)=>{const c=STAFF.filter(s=>ROSTER[s.id]&&ROSTER[s.id][di]&&ROSTER[s.id][di]!=='OFF').length;
+    return`<div style="flex:1;text-align:center"><div style="font-size:10px;color:#6b7280;margin-bottom:4px">${d}</div>
       <div style="height:50px;background:#f3f4f6;border-radius:6px;position:relative;overflow:hidden">
-        <div style="position:absolute;bottom:0;left:0;right:0;height:${pct}%;background:#3b82f6;border-radius:6px 6px 0 0"></div>
-      </div>
-      <div style="font-size:11px;margin-top:3px;font-weight:600">${c}</div>
-    </div>`;
-  }).join('');
-  page(`
-    <div class="g4">
-      <div class="met"><div class="ml">Total shifts</div><div class="mv">${total}</div></div>
-      <div class="met"><div class="ml">Staff rostered</div><div class="mv">${staffed.size}</div></div>
-      <div class="met"><div class="ml">Days off</div><div class="mv">${offC}</div></div>
-      <div class="met"><div class="ml">Team size</div><div class="mv">${STAFF.length}</div></div>
-    </div>
-    <div class="g2">
-      <div class="card"><div class="sec">Shifts by venue</div>${vRows}</div>
-      <div class="card"><div class="sec">Shifts per staff member</div>${sRows}</div>
-    </div>
-    <div class="card"><div class="sec">Staff per day</div><div style="display:flex;gap:6px">${dayBars}</div></div>
-  `);
+        <div style="position:absolute;bottom:0;left:0;right:0;height:${Math.round(c/Math.max(STAFF.length,1)*100)}%;background:#3b82f6;border-radius:6px 6px 0 0"></div></div>
+      <div style="font-size:11px;margin-top:3px;font-weight:600">${c}</div></div>`;}).join('');
+  page(`<div class="g4">
+    <div class="met"><div class="ml">Total shifts</div><div class="mv">${total}</div></div>
+    <div class="met"><div class="ml">Staff rostered</div><div class="mv">${staffed.size}</div></div>
+    <div class="met"><div class="ml">Days off</div><div class="mv">${offC}</div></div>
+    <div class="met"><div class="ml">Team size</div><div class="mv">${STAFF.length}</div></div>
+  </div><div class="g2">
+    <div class="card"><div class="sec">By venue</div>${vRows}</div>
+    <div class="card"><div class="sec">By staff member</div>${sRows}</div>
+  </div><div class="card"><div class="sec">Staff per day</div><div style="display:flex;gap:6px">${dayBars}</div></div>`);
 }
 
-function renderExport() {
-  const opts = [
-    {icon:'📊',label:'Export as CSV (Excel/Sheets)',sub:'Download roster as spreadsheet',action:"exportCSV()"},
-    {icon:'📱',label:'Send SMS reminders',sub:'Text each staff member their shift details',action:"sendSMS()"},
-    {icon:'📧',label:'Email roster to team',sub:'Send formatted roster email to all staff',action:"alert('Email integration requires a mail service like SendGrid. Contact your developer.')"},
-    {icon:'🔗',label:'Copy shareable link',sub:'Share the app URL with your team',action:"copyLink()"},
-    {icon:'🖨️',label:'Print roster',sub:'Print-friendly full roster view',action:"window.print()"},
-  ];
-  page(`
-    <div class="sec">Export & share</div>
+// ── Export ───────────────────────────────────────────
+function renderExport(){
+  page(`<div class="sec">Export & share</div>
     <div class="card" style="background:#eff6ff;border-color:#bfdbfe">
-      <div style="font-size:13px;font-weight:600;color:#1d4ed8;margin-bottom:4px">🌐 Your app URL</div>
-      <div style="font-size:12px;color:#1d4ed8;word-break:break-all" id="app-url">${window.location.href}</div>
-      <button class="btn btp" style="margin-top:8px;font-size:12px" onclick="copyLink()">Copy link</button>
+      <div style="font-size:13px;font-weight:600;color:#1d4ed8;margin-bottom:4px">🌐 Your app link</div>
+      <div style="font-size:12px;color:#1d4ed8;word-break:break-all">${window.location.href}</div>
+      <button class="btn btp" style="margin-top:8px" onclick="copyLink()">📋 Copy link</button>
     </div>
-    ${opts.map(o => `
-      <div class="exp-opt" onclick="${o.action}">
-        <div style="display:flex;align-items:center;gap:12px">
-          <div style="width:36px;height:36px;border-radius:8px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;font-size:18px">${o.icon}</div>
-          <div>
-            <div style="font-size:13px;font-weight:600">${o.label}</div>
-            <div style="font-size:11px;color:#6b7280">${o.sub}</div>
-          </div>
-        </div>
-        <span style="color:#9ca3af">›</span>
-      </div>`).join('')}
-  `);
+    <div class="exp-opt" onclick="exportCSV()"><div style="display:flex;align-items:center;gap:12px">
+      <div style="width:36px;height:36px;border-radius:8px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;font-size:18px">📊</div>
+      <div><div style="font-size:13px;font-weight:600">Export as CSV</div><div style="font-size:11px;color:#6b7280">Download for Excel or Sheets</div></div>
+    </div><span>›</span></div>
+    <div class="exp-opt" onclick="window.print()"><div style="display:flex;align-items:center;gap:12px">
+      <div style="width:36px;height:36px;border-radius:8px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;font-size:18px">🖨️</div>
+      <div><div style="font-size:13px;font-weight:600">Print roster</div><div style="font-size:11px;color:#6b7280">Print-friendly view</div></div>
+    </div><span>›</span></div>`);
 }
-
-function exportCSV() {
-  const rows = [['Staff', 'Role', ...DS]];
-  STAFF.forEach(s => {
-    rows.push([s.name, s.role, ...DAYS.map((_, di) => (ROSTER[s.id] && ROSTER[s.id][di]) || 'OFF')]);
-  });
-  const csv = rows.map(r => r.map(c => `"${c}"`).join(',')).join('\n');
-  const a = document.createElement('a');
-  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
-  a.download = 'roster_churros_18-24may.csv';
-  a.click();
+function exportCSV(){
+  const rows=[['Staff','Role',...DS]];
+  STAFF.forEach(s=>rows.push([s.name,s.role,...DAYS.map((_,di)=>(ROSTER[s.id]&&ROSTER[s.id][di])||'OFF')]));
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(rows.map(r=>r.map(c=>`"${c}"`).join(',')).join('\n'));
+  a.download='roster_churros.csv';a.click();
 }
+function copyLink(){navigator.clipboard.writeText(window.location.href).then(()=>alert('✅ Link copied!')).catch(()=>prompt('Copy:',window.location.href));}
 
-function copyLink() {
-  navigator.clipboard.writeText(window.location.href).then(() => alert('✅ Link copied! Share it with your team.')).catch(() => {
-    prompt('Copy this link:', window.location.href);
-  });
+// ── Notifications ────────────────────────────────────
+function addNotification(icon,text){
+  const n={id:'n'+Date.now(),icon,text,time:new Date().toLocaleTimeString(),read:false};
+  notifications.unshift(n);fbWrite('notifications/'+n.id,n);updateNotifBadge();
 }
-
-function addNotification(icon, text) {
-  const n = {id: 'n' + Date.now(), icon, text, time: new Date().toLocaleTimeString(), read: false};
-  notifications.unshift(n);
-  fbSet('notifications/' + n.id, n);
-  updateNotifBadge();
+function updateNotifBadge(){
+  const b=document.getElementById('nbadge');
+  if(b)b.style.display=notifications.filter(n=>!n.read).length?'block':'none';
 }
-
-function updateNotifBadge() {
-  const unread = notifications.filter(n => !n.read).length;
-  const badge = document.getElementById('nbadge');
-  if (badge) badge.style.display = unread ? 'block' : 'none';
+function renderNotif(){
+  page(`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+    <span class="sec" style="margin:0">Notifications</span>
+    <button class="btn" onclick="markAllRead()" style="font-size:11px">Mark all read</button>
+  </div><div class="card" style="padding:0;overflow:hidden">`+
+  (notifications.slice(0,20).map(n=>`<div class="notif-item ${n.read?'':'unread'}" onclick="markRead('${n.id}')">
+    <div style="width:30px;height:30px;border-radius:50%;background:#f3f4f6;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px">${n.icon}</div>
+    <div style="flex:1"><div style="font-size:12px">${n.text}</div><div style="font-size:11px;color:#9ca3af;margin-top:2px">${n.time}</div></div>
+    ${!n.read?'<div style="width:7px;height:7px;border-radius:50%;background:#3b82f6;flex-shrink:0;margin-top:4px"></div>':''}
+  </div>`).join('')||'<div style="padding:14px;font-size:12px;color:#9ca3af">No notifications yet.</div>')+
+  '</div>');
 }
+function markRead(id){const n=notifications.find(x=>x.id===id);if(n){n.read=true;fbWrite('notifications/'+id+'/read',true);}updateNotifBadge();renderNotif();}
+function markAllRead(){notifications.forEach(n=>{n.read=true;fbWrite('notifications/'+n.id+'/read',true);});updateNotifBadge();renderNotif();}
 
-function renderNotif() {
-  const rows = notifications.slice(0, 20).map(n => `
-    <div class="notif-item ${n.read ? '' : 'unread'}" onclick="markRead('${n.id}')">
-      <div class="nicon" style="background:#f3f4f6;font-size:16px">${n.icon}</div>
-      <div style="flex:1">
-        <div style="font-size:12px">${n.text}</div>
-        <div style="font-size:11px;color:#9ca3af;margin-top:2px">${n.time}</div>
-      </div>
-      ${!n.read ? '<div style="width:7px;height:7px;border-radius:50%;background:#3b82f6;flex-shrink:0;margin-top:4px"></div>' : ''}
-    </div>`).join('');
-  page(`
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-      <span class="sec" style="margin:0">Notifications</span>
-      <button class="btn" onclick="markAllRead()" style="font-size:11px">Mark all read</button>
+// ── Time Clock ───────────────────────────────────────
+function renderTimeClock(){
+  const cs=STAFF.find(s=>s.id===currentStaffId);if(!cs)return;
+  const myShifts=DAYS.map((d,di)=>({d,v:(ROSTER[currentStaffId]&&ROSTER[currentStaffId][di])||'OFF'})).filter(x=>x.v!=='OFF');
+  page(`<div class="g2">
+    <div><div class="card" style="text-align:center">
+      <div style="font-size:12px;color:#6b7280;margin-bottom:2px">Current time</div>
+      <div class="clkdisp" id="lclk">--:--:--</div>
+      <div style="font-size:12px;color:#6b7280;margin-bottom:12px" id="ldate"></div>
+      <div style="font-size:12px;color:#6b7280;margin-bottom:12px" id="clkstat">${clockedIn?(onBreak?'⏸ On break':'✅ Clocked in')+' since '+(clockInTime?clockInTime.toLocaleTimeString():''):'⭕ Not clocked in'}</div>
+      <button class="pb ${clockedIn?'pcout':'pcin'}" onclick="punch()">${clockedIn?'🔴 Clock Out':'🟢 Clock In'}</button>
+      <button class="pb pbrk" onclick="punchBreak()" style="display:${clockedIn?'block':'none'}">${onBreak?'▶ End Break':'⏸ Start Break'}</button>
     </div>
-    <div class="card" style="padding:0;overflow:hidden">
-      ${rows || '<div style="padding:14px;font-size:12px;color:#9ca3af">No notifications yet.</div>'}
+    <div class="g2" style="grid-template-columns:1fr 1fr">
+      <div class="met"><div class="ml">Hours this week</div><div class="mv">${parseFloat(weekHours).toFixed(1)}</div></div>
+      <div class="met"><div class="ml">Shifts done</div><div class="mv">${weekShifts}</div></div>
+    </div></div>
+    <div><div class="card"><div class="sec">My shifts</div>
+      ${myShifts.map(x=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#f9fafb;border-radius:8px;margin-bottom:6px;font-size:12px"><span style="font-weight:500">${x.d}</span><span class="badge ${sc(x.v)}">${x.v}</span></div>`).join('')||'<div style="font-size:12px;color:#9ca3af">No shifts this week.</div>'}
     </div>
-  `);
-}
-
-function markRead(id) {
-  const n = notifications.find(x => x.id === id);
-  if (n) { n.read = true; fbSet('notifications/' + id + '/read', true); }
-  updateNotifBadge(); renderNotif();
-}
-
-function markAllRead() {
-  notifications.forEach(n => { n.read = true; fbSet('notifications/' + n.id + '/read', true); });
-  updateNotifBadge(); renderNotif();
-}
-
-function renderTimeClock() {
-  const cs = STAFF.find(s => s.id === currentStaffId);
-  if (!cs) return;
-  const myShifts = DAYS.map((d, di) => ({d, shift: (ROSTER[currentStaffId] && ROSTER[currentStaffId][di]) || 'OFF'})).filter(x => x.shift !== 'OFF');
-  const shiftRows = myShifts.map(x =>
-    `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#f9fafb;border-radius:8px;margin-bottom:6px;font-size:12px">
-      <span style="font-weight:500">${x.d}</span><span class="badge ${sc(x.shift)}">${x.shift}</span>
-    </div>`).join('');
-  const logRows = clockLog.slice().reverse().map(e =>
-    `<div class="loge"><span>${e.type}</span><span>${e.time}${e.hrs ? ' (' + e.hrs + 'h)' : ''}</span></div>`).join('');
-
-  page(`
-    <div class="g2">
-      <div>
-        <div class="card" style="text-align:center">
-          <div style="font-size:12px;color:#6b7280;margin-bottom:2px">Current time</div>
-          <div class="clkdisp" id="lclk">--:--:--</div>
-          <div style="font-size:12px;color:#6b7280;margin-bottom:12px" id="ldate"></div>
-          <div style="font-size:12px;color:#6b7280;margin-bottom:12px" id="clkstat">${clockedIn ? (onBreak ? '⏸ On break' : '✅ Clocked in') + ' since ' + (clockInTime ? clockInTime.toLocaleTimeString() : '') : '⭕ Not clocked in'}</div>
-          <button class="pb ${clockedIn ? 'pout' : 'pin'}" id="pbtn" onclick="punch()">${clockedIn ? '🔴 Clock Out' : '🟢 Clock In'}</button>
-          <button class="pb pbrk" id="brkbtn" onclick="punchBreak()" style="display:${clockedIn ? 'block' : 'none'}">${onBreak ? '▶ End Break' : '⏸ Start Break'}</button>
-        </div>
-        <div class="g2" style="grid-template-columns:1fr 1fr">
-          <div class="met"><div class="ml">Hours this week</div><div class="mv">${parseFloat(weekHours).toFixed(1)}</div></div>
-          <div class="met"><div class="ml">Shifts done</div><div class="mv">${weekShifts}</div></div>
-        </div>
-      </div>
-      <div>
-        <div class="card">
-          <div class="sec">My shifts this week</div>
-          ${shiftRows || '<div style="font-size:12px;color:#9ca3af">No shifts this week.</div>'}
-        </div>
-        <div class="card">
-          <div class="sec">Clock log</div>
-          <div class="hlog">${logRows || '<div style="font-size:12px;color:#9ca3af">No entries yet.</div>'}</div>
-        </div>
-      </div>
-    </div>
-  `);
+    <div class="card"><div class="sec">Clock log</div><div class="hlog">
+      ${clockLog.slice().reverse().map(e=>`<div class="loge"><span>${e.type}</span><span>${e.time}${e.hrs?' ('+e.hrs+'h)':''}</span></div>`).join('')||'<div style="font-size:12px;color:#9ca3af">No entries yet.</div>'}
+    </div></div></div>
+  </div>`);
   updateClock();
 }
-
-function updateClock() {
-  const lc = document.getElementById('lclk');
-  const ld = document.getElementById('ldate');
-  if (!lc) { if (clkTimer) clearTimeout(clkTimer); return; }
-  const now = new Date();
-  lc.textContent = now.toLocaleTimeString();
-  if (ld) ld.textContent = now.toLocaleDateString('en-AU', {weekday:'long', day:'numeric', month:'long'});
-  clkTimer = setTimeout(updateClock, 1000);
+function updateClock(){
+  const lc=document.getElementById('lclk');if(!lc){if(clkTimer)clearTimeout(clkTimer);return;}
+  const now=new Date();lc.textContent=now.toLocaleTimeString();
+  const ld=document.getElementById('ldate');if(ld)ld.textContent=now.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long'});
+  clkTimer=setTimeout(updateClock,1000);
 }
-
-function punch() {
-  if (!clockedIn) {
-    clockedIn = true; onBreak = false; clockInTime = new Date();
-    const cs = STAFF.find(s => s.id === currentStaffId);
-    if (cs) cs.status = 'working';
-    fbSet('staff/' + currentStaffId + '/status', 'working');
-    clockLog.push({type: '🟢 Clock in', time: clockInTime.toLocaleTimeString()});
-    fbSet('clocklog/' + currentStaffId + '/' + Date.now(), {type:'Clock in', time:clockInTime.toISOString()});
-    weekShifts++;
-  } else {
-    const now = new Date();
-    const hrs = ((now - clockInTime) / 3600000).toFixed(2);
-    weekHours = (parseFloat(weekHours) + parseFloat(hrs)).toFixed(2);
-    clockedIn = false; onBreak = false;
-    const cs = STAFF.find(s => s.id === currentStaffId);
-    if (cs) cs.status = 'off';
-    fbSet('staff/' + currentStaffId + '/status', 'off');
-    clockLog.push({type: '🔴 Clock out', time: now.toLocaleTimeString(), hrs});
-    fbSet('clocklog/' + currentStaffId + '/' + Date.now(), {type:'Clock out', time:now.toISOString(), hours:hrs});
+function punch(){
+  if(!clockedIn){
+    clockedIn=true;onBreak=false;clockInTime=new Date();
+    const cs=STAFF.find(s=>s.id===currentStaffId);if(cs)cs.status='working';
+    fbWrite('staff/'+currentStaffId+'/status','working');
+    clockLog.push({type:'🟢 Clock in',time:clockInTime.toLocaleTimeString()});
+    fbWrite('clocklog/'+currentStaffId+'/'+Date.now(),{type:'Clock in',time:clockInTime.toISOString()});weekShifts++;
+  }else{
+    const now=new Date();const hrs=((now-clockInTime)/3600000).toFixed(2);
+    weekHours=(parseFloat(weekHours)+parseFloat(hrs)).toFixed(2);clockedIn=false;onBreak=false;
+    const cs=STAFF.find(s=>s.id===currentStaffId);if(cs)cs.status='off';
+    fbWrite('staff/'+currentStaffId+'/status','off');
+    clockLog.push({type:'🔴 Clock out',time:now.toLocaleTimeString(),hrs});
+    fbWrite('clocklog/'+currentStaffId+'/'+Date.now(),{type:'Clock out',time:now.toISOString(),hours:hrs});
   }
   renderTimeClock();
 }
-
-function punchBreak() {
-  onBreak = !onBreak;
-  const cs = STAFF.find(s => s.id === currentStaffId);
-  if (cs) cs.status = onBreak ? 'break' : 'working';
-  fbSet('staff/' + currentStaffId + '/status', onBreak ? 'break' : 'working');
-  clockLog.push({type: onBreak ? '⏸ Break start' : '▶ Break end', time: new Date().toLocaleTimeString()});
-  renderTimeClock();
+function punchBreak(){
+  onBreak=!onBreak;const cs=STAFF.find(s=>s.id===currentStaffId);if(cs)cs.status=onBreak?'break':'working';
+  fbWrite('staff/'+currentStaffId+'/status',onBreak?'break':'working');
+  clockLog.push({type:onBreak?'⏸ Break start':'▶ Break end',time:new Date().toLocaleTimeString()});renderTimeClock();
 }
 
-function renderAvail() {
-  const av = availability[currentStaffId] || {};
-  const days = DS.map((d, i) => {
-    const val = av[i] || 'yes';
-    return `<div class="avail-day av-${val}" onclick="cycleAvail(${i})" id="av-${i}">
-      <div style="font-weight:600;font-size:12px">${d.split(' ')[0]}</div>
-      <div style="font-size:10px;margin-top:2px">${d.split(' ')[1]}</div>
-      <div style="margin-top:5px;font-size:10px">${val === 'yes' ? '✅' : val === 'no' ? '❌' : '⚠️'}</div>
-    </div>`;
-  }).join('');
-  page(`
-    <div class="sec">My availability — week of 18–24 May</div>
+// ── Availability ─────────────────────────────────────
+function renderAvail(){
+  const av=availability[currentStaffId]||{};
+  page(`<div class="sec">My availability — week of 18–24 May</div>
     <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;font-size:12px">
       <span style="padding:3px 10px;background:#dcfce7;border:1px solid #16a34a;color:#14532d;border-radius:6px">✅ Available</span>
       <span style="padding:3px 10px;background:#fef3c7;border:1px solid #d97706;color:#92400e;border-radius:6px">⚠️ Maybe</span>
       <span style="padding:3px 10px;background:#fee2e2;border:1px solid #dc2626;color:#7f1d1d;border-radius:6px">❌ Unavailable</span>
-      <span style="color:#9ca3af;align-self:center;font-size:11px">Tap a day to cycle through options</span>
+      <span style="color:#9ca3af;font-size:11px">Tap to cycle</span>
     </div>
-    <div class="avail-grid">${days}</div>
-    <div style="display:flex;gap:8px;margin-top:4px;flex-wrap:wrap">
-      <button class="btn btg" onclick="saveAvail()">✓ Save & send to manager</button>
+    <div class="avail-grid">${DS.map((d,i)=>{const val=av[i]||'yes';
+      return`<div class="avail-day av-${val}" onclick="cycleAvail(${i})">
+        <div style="font-weight:600;font-size:12px">${d.split(' ')[0]}</div>
+        <div style="font-size:10px;margin-top:2px">${d.split(' ')[1]}</div>
+        <div style="margin-top:5px;font-size:14px">${val==='yes'?'✅':val==='no'?'❌':'⚠️'}</div>
+      </div>`;}).join('')}</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn btg" onclick="saveAvail()">✓ Save & send</button>
       <button class="btn" onclick="setAllAvail('yes')">All available</button>
       <button class="btn btd" onclick="setAllAvail('no')">All unavailable</button>
     </div>
-    <div class="card" style="margin-top:12px">
-      <div class="sec">Additional notes</div>
-      <div class="fg"><textarea id="av-notes" placeholder="Any notes for your manager (time restrictions, medical, etc.)..." style="min-height:80px;resize:vertical"></textarea></div>
-      <button class="btn btp" onclick="saveAvail()">📤 Submit to manager</button>
-    </div>
-  `);
+    <div class="card" style="margin-top:12px"><div class="sec">Notes for manager</div>
+      <div class="fg"><textarea id="av-notes" placeholder="Any notes..." style="min-height:70px;resize:vertical"></textarea></div>
+      <button class="btn btp" onclick="saveAvail()">📤 Submit</button>
+    </div>`);
+}
+function cycleAvail(i){
+  if(!availability[currentStaffId])availability[currentStaffId]={};
+  const c={yes:'maybe',maybe:'no',no:'yes'};
+  availability[currentStaffId][i]=c[availability[currentStaffId][i]||'yes'];renderAvail();
+}
+function setAllAvail(val){if(!availability[currentStaffId])availability[currentStaffId]={};DAYS.forEach((_,i)=>{availability[currentStaffId][i]=val;});renderAvail();}
+function saveAvail(){fbWrite('availability/'+currentStaffId,availability[currentStaffId]);addNotification('📅','Availability submitted');alert('✅ Availability saved!');}
+
+// ── My Schedule ──────────────────────────────────────
+function renderMySchedule(){
+  const cs=STAFF.find(s=>s.id===currentStaffId);if(!cs)return;
+  const dayMap={1:0,2:1,3:2,4:3,5:4,6:5,0:6};const todayIdx=dayMap[new Date().getDay()]??-1;
+  const shifts=Object.values(ROSTER[currentStaffId]||{}).filter(v=>v&&v!=='OFF').length;
+  const venues=[...new Set(Object.values(ROSTER[currentStaffId]||{}).filter(v=>v&&v!=='OFF').map(v=>v.replace(/\s+[\d:.\-\/]+.*/,'').trim()))];
+  page(`<div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+    <div class="av" style="width:42px;height:42px;font-size:15px">${cs.name.slice(0,2).toUpperCase()}</div>
+    <div><div style="font-size:16px;font-weight:700">${cs.name}</div>
+    <div style="font-size:12px;color:#6b7280">${cs.role} · ${shifts} shifts this week</div></div>
+    <div style="margin-left:auto"><button class="btn" onclick="exportMyCal()" style="font-size:12px">⬇ Export</button></div>
+  </div>
+  <div class="g3" style="margin-bottom:14px">
+    <div class="met"><div class="ml">Shifts</div><div class="mv">${shifts}</div></div>
+    <div class="met"><div class="ml">Days off</div><div class="mv">${7-shifts}</div></div>
+    <div class="met"><div class="ml">Venues</div><div class="mv">${venues.length}</div></div>
+  </div><div class="sec">My week</div>`+
+  DAYS.map((d,di)=>{const v=(ROSTER[currentStaffId]&&ROSTER[currentStaffId][di])||'OFF';const isToday=di===todayIdx;
+    return`<div class="mysch-day ${isToday?'day-today':''}">
+      <div><div style="font-size:13px;font-weight:600;${isToday?'color:#1d4ed8':''}">${d}${isToday?' · Today':''}</div>
+      ${v!=='OFF'?'<div style="font-size:11px;color:#6b7280;margin-top:2px">Tap calendar to add</div>':''}</div>
+      <div style="display:flex;align-items:center;gap:8px"><span class="badge ${sc(v)}">${v}</span>
+      ${v!=='OFF'?`<button class="btn" style="padding:4px 8px;font-size:11px" onclick="alert('Opens calendar in live app!')">📅</button>`:''}</div>
+    </div>`;}).join('')+
+  `<div style="margin-top:10px;padding:10px 12px;background:#eff6ff;border-radius:8px;font-size:12px;color:#1d4ed8">ℹ️ To request changes, use the Swaps tab.</div>`);
+}
+function exportMyCal(){
+  const cs=STAFF.find(s=>s.id===currentStaffId);
+  const lines=DAYS.map((d,di)=>`${d}: ${(ROSTER[currentStaffId]&&ROSTER[currentStaffId][di])||'OFF'}`).join('\n');
+  const a=document.createElement('a');a.href='data:text/plain;charset=utf-8,'+encodeURIComponent(`${cs.name}'s Roster\nWeek of 18–24 May\n\n${lines}`);
+  a.download=`${cs.name.toLowerCase().replace(/ /g,'-')}-roster.txt`;a.click();
 }
 
-function cycleAvail(i) {
-  if (!availability[currentStaffId]) availability[currentStaffId] = {};
-  const cycle = {yes: 'maybe', maybe: 'no', no: 'yes'};
-  const cur = availability[currentStaffId][i] || 'yes';
-  availability[currentStaffId][i] = cycle[cur];
-  renderAvail();
+// ── Login ────────────────────────────────────────────
+function showLoginPanel(t){
+  document.getElementById('login-mode-sel').style.display='none';
+  document.getElementById('login-manager').style.display=t==='manager'?'block':'none';
+  document.getElementById('login-staff').style.display=t==='staff'?'block':'none';
 }
-
-function setAllAvail(val) {
-  if (!availability[currentStaffId]) availability[currentStaffId] = {};
-  DAYS.forEach((_, i) => { availability[currentStaffId][i] = val; });
-  renderAvail();
+function buildStaffPicker(){
+  document.getElementById('staff-picker').innerHTML=STAFF.map(s=>`<button class="staff-pick-btn" onclick="loginAsStaff('${s.id}')">${s.name}</button>`).join('');
 }
-
-function saveAvail() {
-  fbSet('availability/' + currentStaffId, availability[currentStaffId]);
-  addNotification('📅', 'Availability submitted to manager');
-  alert('✅ Availability saved and sent to your manager!');
+function backToModesel(){
+  pinEntry='';updatePinDots();document.getElementById('pin-err').style.display='none';
+  document.getElementById('login-mode-sel').style.display='block';
+  document.getElementById('login-manager').style.display='none';
+  document.getElementById('login-staff').style.display='none';
 }
-
-function renderMySchedule() {
-  const cs = STAFF.find(s => s.id === currentStaffId);
-  if (!cs) return;
-  const today = new Date().getDay();
-  const dayMap = {1:0,2:1,3:2,4:3,5:4,6:5,0:6};
-  const todayIdx = dayMap[today] !== undefined ? dayMap[today] : -1;
-  const shifts = Object.values(ROSTER[currentStaffId] || {}).filter(v => v && v !== 'OFF').length;
-  const venues = [...new Set(Object.values(ROSTER[currentStaffId] || {}).filter(v => v && v !== 'OFF').map(v => v.replace(/\s+[\d:.\-\/]+.*/,'').trim()))];
-
-  const rows = DAYS.map((d, di) => {
-    const v = (ROSTER[currentStaffId] && ROSTER[currentStaffId][di]) || 'OFF';
-    const isToday = di === todayIdx;
-    return `<div class="mysch-day ${isToday ? 'day-today' : ''}">
-      <div>
-        <div style="font-size:13px;font-weight:600;${isToday ? 'color:#1d4ed8' : ''}">${d}${isToday ? ' · Today' : ''}</div>
-        ${v !== 'OFF' ? `<div style="font-size:11px;color:#6b7280;margin-top:2px">Tap ＋ to add to calendar</div>` : ''}
-      </div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <span class="badge ${sc(v)}">${v}</span>
-        ${v !== 'OFF' ? `<button class="btn" style="padding:4px 8px;font-size:11px" onclick="alert('In the live app, this adds your shift to your phone calendar!')">＋</button>` : ''}
-      </div>
-    </div>`;
-  }).join('');
-
-  page(`
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
-      <div class="av" style="width:42px;height:42px;font-size:15px">${cs.name.slice(0,2).toUpperCase()}</div>
-      <div>
-        <div style="font-size:16px;font-weight:700">${cs.name}</div>
-        <div style="font-size:12px;color:#6b7280">${cs.role} · ${shifts} shifts this week</div>
-      </div>
-      <div style="margin-left:auto">
-        <button class="btn" onclick="exportMyCal()" style="font-size:12px">⬇ Export my shifts</button>
-      </div>
-    </div>
-    <div class="g3" style="margin-bottom:14px">
-      <div class="met"><div class="ml">Shifts this week</div><div class="mv">${shifts}</div></div>
-      <div class="met"><div class="ml">Days off</div><div class="mv">${7 - shifts}</div></div>
-      <div class="met"><div class="ml">Venues</div><div class="mv">${venues.length}</div></div>
-    </div>
-    <div class="sec">My week at a glance</div>
-    ${rows}
-    <div style="margin-top:10px;padding:10px 12px;background:#eff6ff;border-radius:8px;font-size:12px;color:#1d4ed8">
-      ℹ️ Your roster is managed by your supervisor. To request changes, use the Swap Shifts tab.
-    </div>
-  `);
-}
-
-function exportMyCal() {
-  const cs = STAFF.find(s => s.id === currentStaffId);
-  const lines = DAYS.map((d, di) => `${d}: ${(ROSTER[currentStaffId] && ROSTER[currentStaffId][di]) || 'OFF'}`).join('\n');
-  const blob = new Blob([`${cs.name}'s Roster\nWeek of 18 May – 24 May\n\n${lines}`], {type:'text/plain'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `${cs.name.toLowerCase().replace(' ','-')}-roster.txt`;
-  a.click();
-}
-
-let pinEntry = '';
-function showLogin(t) {
-  document.getElementById('login-mode-sel').style.display = 'none';
-  document.getElementById('login-manager').style.display = t === 'manager' ? 'block' : 'none';
-  document.getElementById('login-staff').style.display = t === 'staff' ? 'block' : 'none';
-  if (t === 'staff') buildStaffPicker();
-}
-
-function buildStaffPicker() {
-  document.getElementById('staff-picker').innerHTML = STAFF.map(s =>
-    `<button class="staff-pick-btn" onclick="loginAsStaff('${s.id}')">${s.name}</button>`
-  ).join('');
-}
-
-function backToModesel() {
-  pinEntry = '';
-  updatePinDots();
-  document.getElementById('pin-err').style.display = 'none';
-  document.getElementById('login-mode-sel').style.display = 'block';
-  document.getElementById('login-manager').style.display = 'none';
-  document.getElementById('login-staff').style.display = 'none';
-}
-
-function pinPress(k) {
-  if (k === 'back') { pinEntry = pinEntry.slice(0,-1); }
-  else if (k === 'clear') { pinEntry = ''; }
-  else if (pinEntry.length < 4) { pinEntry += k; }
-  updatePinDots();
-  document.getElementById('pin-err').style.display = 'none';
-  if (pinEntry.length === 4) {
-    if (pinEntry === MANAGER_PIN) {
-      mode = 'manager';
-      currentStaffId = '';
-      enterApp();
-    } else {
-      document.getElementById('pin-err').style.display = 'block';
-      pinEntry = '';
-      updatePinDots();
-    }
+function pinPress(k){
+  if(k==='back')pinEntry=pinEntry.slice(0,-1);
+  else if(k==='clear')pinEntry='';
+  else if(pinEntry.length<4)pinEntry+=k;
+  updatePinDots();document.getElementById('pin-err').style.display='none';
+  if(pinEntry.length===4){
+    if(pinEntry===MANAGER_PIN){mode='manager';currentStaffId='';enterApp();}
+    else{document.getElementById('pin-err').style.display='block';pinEntry='';updatePinDots();}
   }
 }
-
-function updatePinDots() {
-  for (let i = 0; i < 4; i++) {
-    const dot = document.getElementById('pd' + i);
-    if (dot) dot.className = 'pin-dot' + (i < pinEntry.length ? ' filled' : '');
-  }
+function updatePinDots(){for(let i=0;i<4;i++){const d=document.getElementById('pd'+i);if(d)d.className='pin-dot'+(i<pinEntry.length?' filled':'');}}
+function loginAsStaff(id){mode='staff';currentStaffId=id;enterApp();}
+function enterApp(){
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('main-app').style.display='block';
+  const cs=mode==='manager'?{name:'Manager'}:STAFF.find(s=>s.id===currentStaffId);
+  document.getElementById('uav').textContent=mode==='manager'?'MG':cs.name.slice(0,2).toUpperCase();
+  document.getElementById('uname').textContent=mode==='manager'?'Manager':cs.name;
+  buildNav();showTab(mode==='manager'?'roster':'mysch');
 }
-
-function loginAsStaff(id) {
-  mode = 'staff';
-  currentStaffId = id;
-  enterApp();
-}
-
-function enterApp() {
-  document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('main-app').style.display = 'block';
-  const cs = mode === 'manager' ? {name:'Manager'} : STAFF.find(s => s.id === currentStaffId);
-  document.getElementById('uav').textContent = mode === 'manager' ? 'MG' : cs.name.slice(0,2).toUpperCase();
-  document.getElementById('uname').textContent = mode === 'manager' ? 'Manager' : cs.name;
-  buildNav();
-  showTab(mode === 'manager' ? 'roster' : 'mysch');
-  startListeners();
-}
-
-function logout() {
-  if (clkTimer) clearTimeout(clkTimer);
-  removeAllListeners();
-  document.getElementById('main-app').style.display = 'none';
-  document.getElementById('login-screen').style.display = 'flex';
-  backToModesel();
-}
-
-function startListeners() {
-  addDbListener('staff', val => {
-    if (val) {
-      STAFF = Object.values(val);
-      STAFF.sort((a,b) => a.name.localeCompare(b.name));
-    }
-    updateNotifBadge();
-  });
-  addDbListener('roster', val => { if (val) ROSTER = val; });
-  addDbListener('availability', val => { if (val) availability = val; });
-  addDbListener('swaps', val => { swapRequests = val ? Object.values(val).sort((a,b) => b.id.localeCompare(a.id)) : []; });
-  addDbListener('notifications', val => {
-    notifications = val ? Object.values(val).sort((a,b) => b.id.localeCompare(a.id)) : [];
-    updateNotifBadge();
-  });
-}
-
-async function boot() {
-  STAFF = DEFAULT_STAFF.slice();
-  ROSTER = JSON.parse(JSON.stringify(DEFAULT_ROSTER));
-  await initFirebase();
-  buildStaffPicker();
+function logout(){
+  if(clkTimer)clearTimeout(clkTimer);
+  document.getElementById('main-app').style.display='none';
+  document.getElementById('login-screen').style.display='flex';
+  backToModesel();buildStaffPicker();
 }
 
 boot();
