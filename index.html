@@ -92,6 +92,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   .avail-grid{grid-template-columns:repeat(4,1fr)}
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -222,6 +223,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div class="fg"><label>Role</label><select id="ns-role"><option>Staff</option><option>Supervisor</option><option>Manager</option><option>Casual</option></select></div>
       <div class="fg"><label>Phone</label><input id="ns-phone" placeholder="0400 000 000"></div>
     </div>
+    <div class="fg"><label>Email address</label><input id="ns-email" type="email" placeholder="staff@email.com"></div>
     <div style="display:flex;gap:6px;justify-content:flex-end;margin-top:8px">
       <button class="btn" onclick="closeM('m-addstaff')">Cancel</button>
       <button class="btn btp" onclick="doAddStaff()">✓ Add member</button>
@@ -234,6 +236,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 const DB_URL="https://rostering-app-churros-default-rtdb.asia-southeast1.firebasedatabase.app";
 const MANAGER_PIN="9999";
 const STAFF_PIN="9191";
+const EJS_SERVICE="service_cqzgisd";
+const EJS_TEMPLATE="template_i61lgel";
+const EJS_KEY="iasuR-OlpM1d8u37k";
 // ────────────────────────────────────────────────────
 
 const DAYS=['Monday 18/5','Tuesday 19/5','Wednesday 20/5','Thursday 21/5','Friday 22/5','Saturday 23/5','Sunday 24/5'];
@@ -505,8 +510,67 @@ function saveAssign(){
   closeM('m-assign');renderRoster();
 }
 
-function publishRoster(){addNotification('📤','Roster published!');alert('✅ Roster published! All staff can see their shifts.');}
+async function publishRoster(){
+  addNotification('📤','Roster published!');
+  // Check if any staff have emails
+  const staffWithEmail = STAFF.filter(s=>s.email&&s.email.includes('@'));
+  if(staffWithEmail.length===0){
+    alert('✅ Roster published!\n\n⚠️ No staff emails found. Add emails in the Staff tab to send email notifications.');
+    return;
+  }
+  const confirm_send = confirm(`✅ Roster published!\n\nSend email notifications to ${staffWithEmail.length} staff member(s) with email addresses?`);
+  if(!confirm_send) return;
+  
+  emailjs.init(EJS_KEY);
+  let sent=0, failed=0;
+  
+  // Show sending indicator
+  const btn = event.target;
+  btn.textContent='📧 Sending...';
+  btn.disabled=true;
+
+  for(const s of staffWithEmail){
+    const shifts = DAYS.map((d,di)=>{
+      const v=(ROSTER[s.id]&&ROSTER[s.id][di])||'OFF';
+      return `${d}: ${v}`;
+    }).join('\n');
+    
+    try{
+      await emailjs.send(EJS_SERVICE, EJS_TEMPLATE, {
+        to_email: s.email,
+        to_name: s.name,
+        my_shifts: shifts,
+      });
+      sent++;
+    }catch(e){
+      console.warn('Email failed for',s.name,e);
+      failed++;
+    }
+  }
+  
+  btn.textContent='📤 Publish';
+  btn.disabled=false;
+  addNotification('📧',`Emails sent: ${sent} success${failed>0?', '+failed+' failed':''}`);
+  alert(`📧 Done!\n✅ ${sent} email${sent!==1?'s':''} sent successfully${failed>0?'\n❌ '+failed+' failed (check email addresses)':''}`);
+}
 function sendSMS(){addNotification('📱','SMS reminders sent.');alert('📱 SMS reminders sent to all staff!');}
+async function sendEmailsManual(){
+  const staffWithEmail=STAFF.filter(s=>s.email&&s.email.includes('@'));
+  if(staffWithEmail.length===0){
+    alert('⚠️ No staff email addresses found.\n\nGo to the Staff tab and add email addresses for each team member.');
+    return;
+  }
+  if(!confirm(`Send roster emails to ${staffWithEmail.length} staff member(s)?`))return;
+  emailjs.init(EJS_KEY);
+  let sent=0,failed=0;
+  for(const s of staffWithEmail){
+    const shifts=DAYS.map((d,di)=>{const v=(ROSTER[s.id]&&ROSTER[s.id][di])||'OFF';return `${d}: ${v}`;}).join('\n');
+    try{await emailjs.send(EJS_SERVICE,EJS_TEMPLATE,{to_email:s.email,to_name:s.name,my_shifts:shifts});sent++;}
+    catch(e){console.warn('Failed:',s.name,e);failed++;}
+  }
+  addNotification('📧',`Emails sent: ${sent} success${failed>0?', '+failed+' failed':''}`);
+  alert(`📧 Done! ${sent} sent${failed>0?', '+failed+' failed':''}!`);
+}
 
 // ── Staff ────────────────────────────────────────────
 function renderStaff(){
@@ -517,25 +581,42 @@ function renderStaff(){
     const dot=s.status==='working'?'dot-w':s.status==='break'?'dot-b':'dot-o';
     const stxt=s.status==='working'?'Working':s.status==='break'?'On break':'Off';
     const shifts=Object.values(ROSTER[s.id]||{}).filter(v=>v&&v!=='OFF').length;
-    return`<div class="srow">
-      <div style="display:flex;align-items:center;gap:10px">
-        <div class="av">${s.name.slice(0,2).toUpperCase()}</div>
-        <div><div style="font-size:13px;font-weight:600">${s.name}</div>
-        <div style="font-size:11px;color:#6b7280">${s.role} · ${s.phone} · ${shifts} shifts</div></div>
+    return`<div class="srow" style="flex-direction:column;align-items:stretch;gap:8px">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="av">${s.name.slice(0,2).toUpperCase()}</div>
+          <div><div style="font-size:13px;font-weight:600">${s.name}</div>
+          <div style="font-size:11px;color:#6b7280">${s.role} · ${s.phone} · ${shifts} shifts</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="sdot ${dot}"></span><span style="font-size:11px;color:#6b7280">${stxt}</span>
+          <button class="btn btd" style="padding:4px 8px;font-size:11px" onclick="removeMember('${s.id}')">✕</button>
+        </div>
       </div>
       <div style="display:flex;align-items:center;gap:8px">
-        <span class="sdot ${dot}"></span><span style="font-size:11px;color:#6b7280">${stxt}</span>
-        <button class="btn btd" style="padding:4px 8px;font-size:11px" onclick="removeMember('${s.id}')">✕</button>
+        <span style="font-size:11px;color:#6b7280;white-space:nowrap">📧 Email:</span>
+        <input type="email" value="${s.email||''}" placeholder="Add email address..." 
+          style="flex:1;padding:5px 8px;border:1px solid #e5e7eb;border-radius:6px;font-size:12px;background:#f9fafb"
+          onchange="updateStaffEmail('${s.id}', this.value)"
+          onblur="updateStaffEmail('${s.id}', this.value)">
+        ${s.email?'<span style="color:#22c55e;font-size:14px">✅</span>':'<span style="color:#f59e0b;font-size:14px">⚠️</span>'}
       </div>
     </div>`;}).join(''));
 }
 
+function updateStaffEmail(sid, email){
+  const s=STAFF.find(x=>x.id===sid);
+  if(!s)return;
+  s.email=email.trim();
+  fbWrite('staff/'+sid+'/email', email.trim());
+}
 function doAddStaff(){
   const f=document.getElementById('ns-first').value.trim();
   const l=document.getElementById('ns-last').value.trim();
   if(!f)return alert('Please enter a first name.');
   const id='s'+Date.now();
-  const member={id,name:f+(l?' '+l:''),role:document.getElementById('ns-role').value,phone:document.getElementById('ns-phone').value.trim(),status:'off'};
+  const email=document.getElementById('ns-email')?document.getElementById('ns-email').value.trim():'';
+  const member={id,name:f+(l?' '+l:''),role:document.getElementById('ns-role').value,phone:document.getElementById('ns-phone').value.trim(),email,status:'off'};
   STAFF.push(member);ROSTER[id]={};
   availability[id]=Object.fromEntries(DAYS.map((_,i)=>[i,'yes']));
   fbWrite('staff/'+id,member);fbWrite('roster/'+id,{});fbWrite('availability/'+id,availability[id]);
@@ -647,6 +728,10 @@ function renderExport(){
       <div style="font-size:12px;color:#1d4ed8;word-break:break-all">${window.location.href}</div>
       <button class="btn btp" style="margin-top:8px" onclick="copyLink()">📋 Copy link</button>
     </div>
+    <div class="exp-opt" onclick="sendEmailsManual()"><div style="display:flex;align-items:center;gap:12px">
+      <div style="width:36px;height:36px;border-radius:8px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-size:18px">📧</div>
+      <div><div style="font-size:13px;font-weight:600">Email roster to all staff</div><div style="font-size:11px;color:#6b7280">Sends each person their personal shifts</div></div>
+    </div><span>›</span></div>
     <div class="exp-opt" onclick="exportCSV()"><div style="display:flex;align-items:center;gap:12px">
       <div style="width:36px;height:36px;border-radius:8px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;font-size:18px">📊</div>
       <div><div style="font-size:13px;font-weight:600">Export as CSV</div><div style="font-size:11px;color:#6b7280">Download for Excel or Sheets</div></div>
