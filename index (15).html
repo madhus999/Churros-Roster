@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RosterHQ - Churros</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f5;min-height:100vh}#pages{min-height:calc(100vh - 50px);background:#f5f5f5}
+.topbar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:#2563eb;border-bottom:1px solid #1d4ed8;flex-wrap:wrap;position:sticky;top:0;z-index:10}
+.logo{font-size:16px;font-weight:800;color:#fff;margin-right:8px}
+.navtabs{display:flex;gap:2px;flex:1;flex-wrap:wrap}
+.tab{padding:6px 12px;border-radius:8px;font-size:12px;cursor:pointer;border:none;background:transparent;color:rgba(255,255,255,0.75);transition:all 0.1s}
+.tab.on{background:rgba(255,255,255,0.2);color:#fff;font-weight:600}
+.tab:hover{background:rgba(255,255,255,0.1);color:#fff}
+.userpill{display:flex;align-items:center;gap:6px;font-size:12px;color:#fff;cursor:pointer;padding:5px 10px;border:1px solid rgba(255,255,255,0.3);border-radius:8px;background:rgba(255,255,255,0.1)}
+.av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;background:#dbeafe;color:#1d4ed8;flex-shrink:0}
+.pg{display:none;padding:14px;max-width:1100px;margin:0 auto;animation:fadeIn 0.15s ease}
+.pg.on{display:block}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px 16px;margin-bottom:12px}
+.sec{font-size:14px;font-weight:600;color:#111;margin-bottom:10px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+.met{background:#f9fafb;border-radius:8px;padding:10px 12px}
+.ml{font-size:11px;color:#6b7280;margin-bottom:3px}
+.mv{font-size:22px;font-weight:700;color:#111}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:8px;font-size:12px;cursor:pointer;border:1px solid #e5e7eb;background:#fff;color:#111;font-weight:500}
+.btn:hover{background:#f9fafb}
+.btp{background:#2563eb;color:#fff;border-color:transparent}
+.btg{background:#16a34a;color:#fff;border-color:transparent}
+.btd{background:#dc2626;color:#fff;border-color:transparent}
+.btw{background:#d97706;color:#fff;border-color:transparent}
+.badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
+.sh-off{background:#f3f4f6;color:#9ca3af}
+.sh-soccer{background:#fef3c7;color:#92400e}
+.sh-netball{background:#e0f2fe;color:#0c4a6e}
+.sh-bball{background:#f3e8ff;color:#5b21b6}
+.sh-catering{background:#dcfce7;color:#14532d}
+.sh-shed{background:#fee2e2;color:#7f1d1d}
+.sh-other{background:#f1f5f9;color:#334155}
+.rtbl{width:100%;border-collapse:collapse;font-size:11px;table-layout:fixed}
+.rtbl th{text-align:left;padding:6px;background:#f9fafb;color:#6b7280;font-weight:600;border-bottom:1px solid #e5e7eb}
+.rtbl td{padding:5px 6px;border-bottom:1px solid #f3f4f6;vertical-align:middle}
+.rtbl tr:hover td{background:#fafafa}
+.fg{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.fg label{font-size:11px;color:#6b7280;font-weight:500}
+.fg input,.fg select,.fg textarea{padding:7px 10px;border:1px solid #d1d5db;border-radius:8px;background:#fff;color:#111;font-size:13px;font-family:inherit}
+.fgrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mwrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:100;align-items:center;justify-content:center;padding:16px}
+.mwrap.open{display:flex}
+.mbox{background:#fff;border-radius:14px;padding:20px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto}
+.mtit{font-size:15px;font-weight:600;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
+.srow{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border:1px solid #e5e7eb;border-radius:10px;margin-bottom:7px;background:#fff;flex-wrap:wrap;gap:8px}
+.sdot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dot-w{background:#22c55e}.dot-o{background:#94a3b8}.dot-b{background:#f59e0b}
+.clkdisp{font-size:34px;font-weight:700;color:#111;text-align:center;margin:14px 0;font-family:monospace}
+.pb{display:block;width:100%;padding:13px;font-size:14px;border-radius:10px;cursor:pointer;border:none;font-weight:600;margin-bottom:8px}
+.pcin{background:#22c55e;color:#fff}
+.pcout{background:#ef4444;color:#fff}
+.pbrk{background:#f59e0b;color:#fff}
+.hlog{max-height:160px;overflow-y:auto}
+.loge{display:flex;justify-content:space-between;font-size:11px;padding:5px 0;border-bottom:1px solid #f3f4f6;color:#6b7280}
+.avday{border:1px solid #d1d5db;border-radius:8px;padding:8px 4px;text-align:center;cursor:pointer;font-size:11px}
+.av-yes{background:#dcfce7;border-color:#16a34a;color:#14532d}
+.av-no{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.av-maybe{background:#fef3c7;border-color:#d97706;color:#92400e}
+.avgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:12px}
+.sreq{padding:12px;border:1px solid #e5e7eb;border-radius:10px;margin-bottom:8px}
+.nitem{display:flex;align-items:flex-start;gap:10px;padding:12px;border-bottom:1px solid #f3f4f6;cursor:pointer}
+.nitem.unread{background:#eff6ff}
+.schday{padding:11px 14px;border:1px solid #e5e7eb;border-radius:10px;margin-bottom:7px;display:flex;align-items:center;justify-content:space-between;background:#fff}
+.today{border-color:#3b82f6;background:#eff6ff}
+.eopt{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border:1px solid #e5e7eb;border-radius:10px;margin-bottom:8px;cursor:pointer;background:#fff}
+.eopt:hover{background:#f9fafb}
+.lscrn{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f5f5f5;padding:20px}
+.lbox{background:#fff;border-radius:16px;padding:32px;width:100%;max-width:380px;border:1px solid #e5e7eb;text-align:center}
+.pdots{display:flex;justify-content:center;gap:10px;margin:16px 0}
+.pdot{width:14px;height:14px;border-radius:50%;border:2px solid #d1d5db;background:#fff}
+.pdot.filled{background:#2563eb;border-color:#2563eb}
+.numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:240px;margin:0 auto}
+.nkey{padding:14px;border:1px solid #e5e7eb;border-radius:10px;font-size:18px;font-weight:600;cursor:pointer;background:#fff;color:#111;text-align:center}
+.nkey:hover{background:#eff6ff;border-color:#3b82f6}
+.spkr{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;max-height:320px;overflow-y:auto}
+.spkbtn{padding:10px;border:1px solid #e5e7eb;border-radius:8px;cursor:pointer;background:#fff;font-size:13px;font-weight:500;text-align:center}
+.spkbtn:hover{background:#eff6ff;border-color:#3b82f6}
+.nbdot{width:7px;height:7px;border-radius:50%;background:#ef4444;display:none;position:absolute;top:-2px;right:-2px}
+@media(max-width:600px){.g2,.g3,.g4{grid-template-columns:1fr 1fr}.fgrow{grid-template-columns:1fr}.avgrid{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+
+<div id="lscrn" class="lscrn">
+  <div class="lbox">
+    <div style="font-size:28px;font-weight:800;color:#2563eb;margin-bottom:4px">RosterHQ</div>
+    <div style="font-size:13px;color:#6b7280;margin-bottom:6px">Churros Team</div>
+    <div id="cstat" style="font-size:11px;margin-bottom:20px;color:#f59e0b">Connecting...</div>
+    <div id="lmode">
+      <button onclick="showPanel('mgr')" style="width:100%;padding:14px;margin-bottom:12px;background:#2563eb;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer">Manager Login</button>
+      <button onclick="showPanel('stf')" style="width:100%;padding:14px;background:#16a34a;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer">Staff Login</button>
+    </div>
+    <div id="lpanel-mgr" style="display:none">
+      <div style="font-size:14px;font-weight:600;margin-bottom:4px">Manager PIN</div>
+      <div class="pdots"><div class="pdot" id="pd0"></div><div class="pdot" id="pd1"></div><div class="pdot" id="pd2"></div><div class="pdot" id="pd3"></div></div>
+      <div class="numpad">
+        <button class="nkey" onclick="pp('1')">1</button><button class="nkey" onclick="pp('2')">2</button><button class="nkey" onclick="pp('3')">3</button>
+        <button class="nkey" onclick="pp('4')">4</button><button class="nkey" onclick="pp('5')">5</button><button class="nkey" onclick="pp('6')">6</button>
+        <button class="nkey" onclick="pp('7')">7</button><button class="nkey" onclick="pp('8')">8</button><button class="nkey" onclick="pp('9')">9</button>
+        <button class="nkey" onclick="pp('back')">X</button><button class="nkey" onclick="pp('0')">0</button><button class="nkey" onclick="pp('clear')" style="font-size:11px">CLR</button>
+      </div>
+      <div id="perr" style="color:#ef4444;font-size:12px;margin-top:8px;display:none">Wrong PIN</div>
+      <button class="btn" style="margin-top:14px;width:100%;justify-content:center" onclick="backL()">Back</button>
+    </div>
+    <div id="lpanel-stf" style="display:none">
+      <div id="stf-pin-panel">
+        <div style="font-size:14px;font-weight:600;margin-bottom:4px">Staff PIN</div>
+        <div class="pdots"><div class="pdot" id="spd0"></div><div class="pdot" id="spd1"></div><div class="pdot" id="spd2"></div><div class="pdot" id="spd3"></div></div>
+        <div class="numpad">
+          <button class="nkey" onclick="spp('1')">1</button><button class="nkey" onclick="spp('2')">2</button><button class="nkey" onclick="spp('3')">3</button>
+          <button class="nkey" onclick="spp('4')">4</button><button class="nkey" onclick="spp('5')">5</button><button class="nkey" onclick="spp('6')">6</button>
+          <button class="nkey" onclick="spp('7')">7</button><button class="nkey" onclick="spp('8')">8</button><button class="nkey" onclick="spp('9')">9</button>
+          <button class="nkey" onclick="spp('back')">X</button><button class="nkey" onclick="spp('0')">0</button><button class="nkey" onclick="spp('clear')" style="font-size:11px">CLR</button>
+        </div>
+        <div id="sperr" style="color:#ef4444;font-size:12px;margin-top:8px;display:none">Wrong PIN</div>
+        <button class="btn" style="margin-top:14px;width:100%;justify-content:center" onclick="backL()">Back</button>
+      </div>
+      <div id="stf-name-panel" style="display:none">
+        <div style="font-size:14px;font-weight:600;margin-bottom:4px">Select your name</div>
+        <div class="spkr" id="spkr"></div>
+        <button class="btn" style="margin-top:12px;width:100%;justify-content:center" onclick="backL()">Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="app" style="display:none">
+  <div class="topbar">
+    <div class="logo">RosterHQ</div>
+    <div class="navtabs" id="navtabs"></div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <span id="clabel" style="font-size:11px;color:#86efac">Live</span>
+      <div style="position:relative;cursor:pointer" onclick="goTab('notif')">
+        <span style="font-size:18px;filter:brightness(10)">🔔</span>
+        <div class="nbdot" id="nbadge"></div>
+      </div>
+      <div class="userpill" onclick="logout()">
+        <div class="av" id="uav">??</div>
+        <span id="uname">User</span>
+        <span>Out</span>
+      </div>
+    </div>
+  </div>
+  <div id="pages" style="background:#f5f5f5;min-height:calc(100vh - 52px)"></div>
+</div>
+
+<!-- Edit Shift Modal -->
+<div class="mwrap" id="m-edit">
+  <div class="mbox">
+    <div class="mtit"><span id="etit">Edit shift</span><button class="btn" onclick="cm('m-edit')">X</button></div>
+    <div class="fgrow">
+      <div class="fg"><label>Venue</label><select id="e-venue"></select></div>
+      <div class="fg"><label>Start</label><input type="time" id="e-start" value="05:00"></div>
+    </div>
+    <div class="fgrow">
+      <div class="fg"><label>End</label><input type="time" id="e-end" value="10:00"></div>
+      <div class="fg"><label>Notes</label><input id="e-notes"></div>
+    </div>
+    <div style="display:flex;gap:6px;justify-content:flex-end;margin-top:8px;flex-wrap:wrap">
+      <button class="btn btd" onclick="rmShift()">Delete</button>
+      <button class="btn" onclick="cm('m-edit')">Cancel</button>
+      <button class="btn btp" onclick="svEdit()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Assign Shift Modal -->
+<div class="mwrap" id="m-assign">
+  <div class="mbox">
+    <div class="mtit">Assign shift <button class="btn" onclick="cm('m-assign')">X</button></div>
+    <div class="fgrow">
+      <div class="fg"><label>Staff</label><select id="a-staff"></select></div>
+      <div class="fg"><label>Day</label><select id="a-day"></select></div>
+    </div>
+    <div class="fgrow">
+      <div class="fg"><label>Venue</label><select id="a-venue"></select></div>
+      <div class="fg"><label>Start</label><input type="time" id="a-start" value="05:00"></div>
+    </div>
+    <div class="fgrow">
+      <div class="fg"><label>End</label><input type="time" id="a-end" value="10:00"></div>
+      <div class="fg"><label>Notes</label><input id="a-notes"></div>
+    </div>
+    <div style="display:flex;gap:6px;justify-content:flex-end;margin-top:8px">
+      <button class="btn" onclick="cm('m-assign')">Cancel</button>
+      <button class="btn btp" onclick="svAssign()">Assign</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Staff Modal -->
+<div class="mwrap" id="m-add">
+  <div class="mbox">
+    <div class="mtit">Add member <button class="btn" onclick="cm('m-add')">X</button></div>
+    <div class="fgrow">
+      <div class="fg"><label>First name</label><input id="ns-f" placeholder="Charlotte"></div>
+      <div class="fg"><label>Last name</label><input id="ns-l" placeholder="Smith"></div>
+    </div>
+    <div class="fgrow">
+      <div class="fg"><label>Role</label><select id="ns-r"><option>Staff</option><option>Supervisor</option><option>Manager</option><option>Casual</option></select></div>
+      <div class="fg"><label>Phone</label><input id="ns-p" placeholder="0400 000 000"></div>
+    </div>
+    <div class="fg"><label>Email</label><input id="ns-e" type="email" placeholder="staff@email.com"></div>
+    <div style="display:flex;gap:6px;justify-content:flex-end;margin-top:8px">
+      <button class="btn" onclick="cm('m-add')">Cancel</button>
+      <button class="btn btp" onclick="doAdd()">Add</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Staff Modal -->
+<div class="mwrap" id="m-eds">
+  <div class="mbox">
+    <div class="mtit">Edit member <button class="btn" onclick="cm('m-eds')">X</button></div>
+    <div class="fgrow">
+      <div class="fg"><label>First name</label><input id="es-f"></div>
+      <div class="fg"><label>Last name</label><input id="es-l"></div>
+    </div>
+    <div class="fgrow">
+      <div class="fg"><label>Role</label><select id="es-r"><option>Staff</option><option>Supervisor</option><option>Manager</option><option>Casual</option></select></div>
+      <div class="fg"><label>Phone</label><input id="es-p"></div>
+    </div>
+    <div class="fg"><label>Email</label><input id="es-e" type="email"></div>
+    <div style="display:flex;gap:6px;justify-content:flex-end;margin-top:8px">
+      <button class="btn" onclick="cm('m-eds')">Cancel</button>
+      <button class="btn btp" onclick="svEds()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Camera Modal -->
+<div class="mwrap" id="m-cam">
+  <div class="mbox" style="max-width:360px;text-align:center">
+    <div class="mtit"><span id="camtit">Take photo to Clock In</span><button class="btn" onclick="cancelCam()">X</button></div>
+    <video id="camvid" autoplay playsinline style="width:100%;border-radius:12px;background:#000;max-height:260px;object-fit:cover;display:block;margin-bottom:12px"></video>
+    <canvas id="camcvs" style="display:none"></canvas>
+    <div id="camprev" style="display:none;margin-bottom:12px">
+      <img id="camimg" style="width:100%;border-radius:12px;border:2px solid #22c55e">
+      <div style="font-size:12px;color:#22c55e;margin-top:6px">Photo taken!</div>
+    </div>
+    <div id="cambtns">
+      <button class="btn btp" style="width:100%;justify-content:center;padding:12px;margin-bottom:8px" onclick="takePic()">Take Photo</button>
+    </div>
+    <div id="camconf" style="display:none">
+      <div style="display:flex;gap:8px">
+        <button class="btn" style="flex:1;justify-content:center" onclick="retakePic()">Retake</button>
+        <button class="btn btp" style="flex:1;justify-content:center" onclick="confirmCam()">Confirm</button>
+      </div>
+    </div>
+    <div id="camerr" style="display:none;padding:10px;background:#fee2e2;border-radius:8px;font-size:12px;color:#7f1d1d;margin-top:8px">
+      Camera not available.
+      <button class="btn" style="width:100%;justify-content:center;margin-top:8px" onclick="skipCam()">Continue without photo</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var MPIN="9999", SPIN="9191";
+var DB="https://rostering-app-churros-default-rtdb.asia-southeast1.firebasedatabase.app";
+var EJS_SVC="service_cqzgisd", EJS_TPL="template_i61lgel", EJS_KEY="iasuR-OlpM1d8u37k";
+var DAYS=["Monday 18/5","Tuesday 19/5","Wednesday 20/5","Thursday 21/5","Friday 22/5","Saturday 23/5","Sunday 24/5"];
+var DS=["Mon 18","Tue 19","Wed 20","Thu 21","Fri 22","Sat 23","Sun 24"];
+var VN=["NETBALL","SOCCER","BBALL","BASKETBALL","MINDIL","PALM","FORESHORE","SANCTUARY","SPEEDWAY","SHED/cook","CATERING","OFF"];
+
+var DS0=[
+  {id:"s1",name:"Charlotte",role:"Supervisor",phone:"0400 111 111",email:"",status:"off"},
+  {id:"s2",name:"Emma",role:"Staff",phone:"0400 222 222",email:"",status:"off"},
+  {id:"s3",name:"Chelsea",role:"Staff",phone:"0400 333 333",email:"",status:"off"},
+  {id:"s4",name:"Zellina",role:"Staff",phone:"0400 444 444",email:"",status:"off"},
+  {id:"s5",name:"Shelly",role:"Supervisor",phone:"0400 555 555",email:"",status:"off"},
+  {id:"s6",name:"James",role:"Staff",phone:"0400 666 666",email:"",status:"off"},
+  {id:"s7",name:"Sheila",role:"Staff",phone:"0400 777 777",email:"",status:"off"},
+  {id:"s8",name:"Lucy",role:"Staff",phone:"0400 888 888",email:"",status:"off"},
+  {id:"s9",name:"Will",role:"Staff",phone:"0400 999 999",email:"",status:"off"},
+  {id:"s10",name:"Michael",role:"Staff",phone:"0400 101 010",email:"",status:"off"},
+  {id:"s11",name:"KC",role:"Staff",phone:"0400 121 212",email:"",status:"off"},
+  {id:"s12",name:"Mary",role:"Staff",phone:"0400 131 313",email:"",status:"off"},
+  {id:"s13",name:"Ruby",role:"Staff",phone:"0400 141 414",email:"",status:"off"},
+  {id:"s14",name:"Kev",role:"Staff",phone:"0400 151 515",email:"",status:"off"},
+  {id:"s15",name:"Tracey",role:"Staff",phone:"0400 161 616",email:"",status:"off"},
+  {id:"s16",name:"Noriko",role:"Staff",phone:"0400 171 717",email:"",status:"off"},
+  {id:"s17",name:"Cherrlyn",role:"Staff",phone:"0400 181 818",email:"",status:"off"},
+  {id:"s18",name:"Aakriti",role:"Staff",phone:"0400 191 919",email:"",status:"off"},
+  {id:"s19",name:"Aubrey",role:"Staff",phone:"0400 202 020",email:"",status:"off"},
+  {id:"s20",name:"Sofia FF",role:"Staff",phone:"0400 212 121",email:"",status:"off"},
+  {id:"s21",name:"Lance",role:"Staff",phone:"0400 222 111",email:"",status:"off"},
+  {id:"s22",name:"KB",role:"Staff",phone:"0400 232 323",email:"",status:"off"},
+  {id:"s23",name:"Cristina",role:"Staff",phone:"0400 242 424",email:"",status:"off"},
+  {id:"s24",name:"Nicholas",role:"Staff",phone:"0400 252 525",email:"",status:"off"},
+  {id:"s25",name:"Sophia H",role:"Staff",phone:"0400 262 626",email:"",status:"off"},
+  {id:"s26",name:"Ariki",role:"Staff",phone:"0400 272 727",email:"",status:"off"},
+  {id:"s27",name:"Joe",role:"Staff",phone:"0400 282 828",email:"",status:"off"},
+  {id:"s28",name:"Daisy",role:"Staff",phone:"0400 292 929",email:"",status:"off"},
+  {id:"s29",name:"Josephine",role:"Staff",phone:"0400 303 030",email:"",status:"off"},
+  {id:"s30",name:"Winda",role:"Staff",phone:"0400 313 131",email:"",status:"off"},
+  {id:"s31",name:"Mia",role:"Staff",phone:"0400 323 232",email:"",status:"off"}
+];
+var DR={
+  s1:{0:"OFF",1:"OFF",2:"NET/BBALL",3:"MINDIL 3:00-10:00",4:"PALM",5:"NETBALL 8:00-4:00",6:"MINDIL 3:00-10:00"},
+  s2:{0:"OFF",1:"OFF",2:"OFF",3:"MINDIL 4:30-10:00",4:"OFF",5:"SPEEDWAY 5:30-9:00",6:"FORESHORE 4:45-10:00"},
+  s3:{0:"OFF",1:"OFF",2:"SOCCER 5:30-10:00",3:"NETBALL 5:30-10:00",4:"OFF",5:"SANCTUARY 4:45-7:45",6:"FORESHORE 4:45-10:00"},
+  s4:{0:"BBALL 5:30-10:00",1:"OFF",2:"OFF",3:"MINDIL 3:30-10:00",4:"NETBALL 4:00-10:30",5:"NETBALL 9:00-4:00",6:"MINDIL 3:30-10:00"},
+  s5:{0:"OFF",1:"BASKETBALL",2:"SOCCER",3:"NETBALL",4:"SOMEWHERE",5:"SOMEWHERE",6:"SOCCER"},
+  s6:{0:"OFF",1:"OFF",2:"OFF",3:"MINDIL",4:"PALM 4:30-10:30",5:"SANCTUARY 4:45-7:45",6:"FORESHORE"},
+  s7:{0:"BBALL 5:30-10:00",1:"OFF",2:"NETBALL 5:30-10:00",3:"NETBALL 5:30-10:00",4:"NETBALL 5:30-10:30",5:"OFF",6:"OFF"},
+  s8:{0:"BBALL 5:00-10:00",1:"OFF",2:"OFF",3:"BBALL 5:30-10:00",4:"OFF",5:"BBALL 9:00-2:00",6:"BASKETBALL 9:00-10:00"},
+  s9:{0:"OFF",1:"OFF",2:"NETBALL 4:30-10:00",3:"NETBALL 5:30-10:00",4:"NETBALL 4:30-10:30",5:"BASKETBALL 12:30-10:00",6:"NETBALL 8:00-2:00"},
+  s10:{0:"OFF",1:"BBALL 9:00-10:00",2:"BASKETBALL 3:00-10:00",3:"BBALL 9:00-3:00",4:"CATERING 8:00-10:30",5:"BASKETBALL 7:30-5:30",6:"BASKETBALL 7:30-1:00"},
+  s11:{0:"CATERING 9:00-10:00",1:"OFF",2:"CATERING 8:00-5:30",3:"OFF",4:"CATERING 9:00-6:00",5:"CATERING 9:00-3:30",6:"CATERING 8:00-3:30"},
+  s12:{0:"CATERING 9:00-10:00",1:"CATERING 9:00-10:00",2:"OFF",3:"OFF",4:"OFF",5:"OFF",6:"OFF"},
+  s13:{0:"OFF",1:"OFF",2:"OFF",3:"OFF",4:"OFF",5:"SANCTUARY 4:45-7:45",6:"OFF"},
+  s14:{0:"OFF",1:"OFF",2:"OFF",3:"MINDIL 5:30-10:00",4:"OFF",5:"OFF",6:"MINDIL 4:30-10:00"},
+  s15:{0:"OFF",1:"OFF",2:"OFF",3:"MINDIL 5:30-10:00",4:"OFF",5:"OFF",6:"MINDIL 4:30-10:00"},
+  s16:{0:"OFF",1:"OFF",2:"OFF",3:"OFF",4:"PALM 4:30-10:30",5:"SPEEDWAY 4:30-9:00",6:"OFF"},
+  s17:{0:"SHED/cook",1:"OFF",2:"SHED/cook",3:"OFF",4:"SHED/cook",5:"BBALL 7:30-1:00",6:"SHED/cook"},
+  s18:{0:"OFF",1:"OFF",2:"SOCCER 5:30-10:00",3:"OFF",4:"SOCCER 5:30-10:30",5:"SOCCER 3:30-10:00",6:"SOCCER 3:30-10:00"},
+  s19:{0:"OFF",1:"OFF",2:"OFF",3:"OFF",4:"PALM 5:00-9:00",5:"SANCTUARY 4:45-7:45",6:"OFF"},
+  s20:{0:"OFF",1:"OFF",2:"OFF",3:"MINDIL 5:00-10:00",4:"OFF",5:"OFF",6:"MINDIL 5:00-10:00"},
+  s21:{0:"OFF",1:"OFF",2:"OFF",3:"OFF",4:"OFF",5:"BBALL 1:00-5:00",6:"BBALL 9:00-1:00"},
+  s22:{0:"OFF",1:"OFF",2:"OFF",3:"MINDIL 3:30-10:00",4:"BBALL 5:00-10:30",5:"SHED/cook 3:00-10:00",6:"MINDIL 3:30-10:00"},
+  s23:{0:"OFF",1:"OFF",2:"NETBALL 4:30-10:00",3:"NETBALL 5:30-10:00",4:"SOCCER 6:00-10:30",5:"OFF",6:"OFF"},
+  s24:{0:"OFF",1:"OFF",2:"OFF",3:"OFF",4:"OFF",5:"BASKETBALL 12:30-10:00",6:"NETBALL 10:00-4:00"},
+  s25:{0:"OFF",1:"OFF",2:"OFF",3:"OFF",4:"BBALL 5:00-10:30",5:"BASKETBALL 8:00-12:30",6:"OFF"},
+  s26:{0:"OFF",1:"OFF",2:"OFF",3:"OFF",4:"OFF",5:"BASKETBALL 8:30-12:30",6:"OFF"},
+  s27:{0:"OFF",1:"BASKETBALL 5:30-10:00",2:"NETBALL 4:00-10:00",3:"OFF",4:"OFF",5:"NETBALL 7:30-1:00",6:"NETBALL 7:30-1:00"},
+  s28:{0:"OFF",1:"OFF",2:"OFF",3:"OFF",4:"OFF",5:"OFF",6:"MINDIL 5:00-10:00"},
+  s29:{0:"OFF",1:"BBALL 5:00-10:00",2:"OFF",3:"OFF",4:"OFF",5:"OFF",6:"OFF"},
+  s30:{0:"OFF",1:"OFF",2:"OFF",3:"BBALL 5:00-10:00",4:"BBALL 5:00-10:30",5:"OFF",6:"OFF"},
+  s31:{0:"OFF",1:"OFF",2:"OFF",3:"MINDIL 5:00-10:00",4:"OFF",5:"OFF",6:"OFF"}
+};
+
+var STAFF=[],ROSTER={},avail={},swaps=[],notifs=[],clog=[],wHrs=0,wShifts=0;
+var clkIn=false,onBrk=false,clkTime=null,mode="",curId="",editCtx=null;
+var pe="",spe="",eid=null,camStream=null,pendPunch=null,capPhoto=null,clkTmr=null;
+
+function fbr(path){return fetch(DB+"/"+path+".json").then(function(r){return r.json();}).catch(function(){return null;});}
+function fbw(path,val){fetch(DB+"/"+path+".json",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(val)}).catch(function(){});}
+function fbd(path){fetch(DB+"/"+path+".json",{method:"DELETE"}).catch(function(){});}
+
+function sc(v){
+  if(!v||v==="OFF")return "sh-off";
+  var u=v.toUpperCase();
+  if(u.indexOf("SOCCER")>=0)return "sh-soccer";
+  if(u.indexOf("NETBALL")>=0)return "sh-netball";
+  if(u.indexOf("BBALL")>=0||u.indexOf("BASKETBALL")>=0)return "sh-bball";
+  if(u.indexOf("CATERING")>=0)return "sh-catering";
+  if(u.indexOf("SHED")>=0)return "sh-shed";
+  return "sh-other";
+}
+function vo(s){return VN.map(function(v){return "<option"+(s&&v===s?" selected":"")+">"+v+"</option>";}).join("");}
+function pg(h){
+  var p=document.getElementById("pages");
+  p.style.opacity="0";
+  setTimeout(function(){
+    p.innerHTML="<div class='pg on'>"+h+"</div>";
+    p.style.transition="opacity 0.15s";
+    p.style.opacity="1";
+  },50);
+}
+function om(id){document.getElementById(id).classList.add("open");}
+function cm(id){document.getElementById(id).classList.remove("open");}
+
+function boot(){
+  STAFF=JSON.parse(JSON.stringify(DS0));
+  ROSTER=JSON.parse(JSON.stringify(DR));
+  showL();
+  fbr("staff").then(function(d){
+    if(d===null){
+      var so={};DS0.forEach(function(s){so[s.id]=s;});
+      fbw("staff",so);fbw("roster",DR);fbw("swaps",{});fbw("notifications",{});
+      var ao={};DS0.forEach(function(s){var x={};DAYS.forEach(function(_,i){x[i]="yes";});ao[s.id]=x;});
+      fbw("availability",ao);
+      setCStat(true);
+    } else {
+      STAFF=Object.values(d).sort(function(a,b){return a.name.localeCompare(b.name);});
+      Promise.all([fbr("roster"),fbr("availability"),fbr("swaps"),fbr("notifications")]).then(function(res){
+        if(res[0])ROSTER=res[0];
+        if(res[1])avail=res[1];
+        if(res[2])swaps=Object.values(res[2]).sort(function(a,b){return b.id.localeCompare(a.id);});
+        if(res[3])notifs=Object.values(res[3]).sort(function(a,b){return b.id.localeCompare(a.id);});
+        setCStat(true);
+        buildPkr();
+        startPoll();
+      });
+    }
+  }).catch(function(){setCStat(false);});
+}
+
+function setCStat(ok){
+  var el=document.getElementById("cstat");
+  if(!el)return;
+  el.textContent=ok?"Connected":"Offline mode";
+  el.style.color=ok?"#22c55e":"#d97706";
+}
+
+function showL(){
+  document.getElementById("lscrn").style.display="flex";
+  buildPkr();
+}
+
+function startPoll(){
+  setInterval(function(){
+    // Load all week rosters
+    fbr("weekrosters").then(function(wr){
+      if(wr){
+        allWeeks=wr;
+        if(wr[currentWeekKey]) ROSTER=JSON.parse(JSON.stringify(wr[currentWeekKey]));
+      }
+    });
+    fbr("staff").then(function(d){if(d)STAFF=Object.values(d).sort(function(a,b){return a.name.localeCompare(b.name);});});
+    fbr("roster").then(function(d){if(d)ROSTER=d;});
+    fbr("availability").then(function(d){if(d)avail=d;});
+    fbr("swaps").then(function(d){if(d)swaps=Object.values(d).sort(function(a,b){return b.id.localeCompare(a.id);});});
+    fbr("notifications").then(function(d){
+      if(d){notifs=Object.values(d).sort(function(a,b){return b.id.localeCompare(a.id);});updNB();}
+    });
+  },6000);
+}
+
+var MTABS=[{id:"roster",l:"Roster"},{id:"builder",l:"Build Roster"},{id:"analytics",l:"Analytics"},{id:"staff",l:"Staff"},{id:"swap",l:"Swaps"},{id:"export",l:"Export"},{id:"notif",l:"Alerts"}];
+var STABS=[{id:"mysch",l:"My Schedule"},{id:"timeclock",l:"Clock In/Out"},{id:"avail",l:"Availability"},{id:"myswap",l:"Swap Shifts"},{id:"notif",l:"Alerts"}];
+
+function buildNav(){
+  var tabs=mode==="manager"?MTABS:STABS;
+  document.getElementById("navtabs").innerHTML=tabs.map(function(t){
+    return "<button class='tab' id='tab-"+t.id+"' onclick='goTab(\""+t.id+"\")'>" + t.l + "</button>";
+  }).join("");
+  updNB();
+}
+
+function goTab(id){
+  document.querySelectorAll(".tab").forEach(function(b){b.classList.remove("on");});
+  var t=document.getElementById("tab-"+id);if(t)t.classList.add("on");
+  document.getElementById("pages").innerHTML="";
+  var m={roster:rRoster,builder:rBuilder,analytics:rAnalytics,staff:rStaff,swap:rSwap,myswap:rSwap,reports:rReports,export:rExport,notif:rNotif,timeclock:rClock,avail:rAvail,mysch:rMysch};
+  if(m[id])m[id]();
+}
+
+function rRoster(){
+  var h="<th style='width:85px'>Staff</th>"+DS.map(function(d){return "<th>"+d+"</th>";}).join("");
+  var b=STAFF.map(function(s){
+    var cells=DAYS.map(function(_,di){
+      var v=(ROSTER[s.id]&&ROSTER[s.id][di])||"OFF";
+      return "<td><span class='badge "+sc(v)+"' style='cursor:pointer' onclick='oEdit(\""+s.id+"\","+di+",\""+v.replace(/"/g,"&quot;")+"\")'>"+v+"</span></td>";
+    }).join("");
+    return "<tr><td style='font-weight:600;font-size:11px;white-space:nowrap'>"+s.name+"</td>"+cells+"</tr>";
+  }).join("");
+  pg("<div style='display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap'>"
+    +"<button class='btn' onclick='prevWeek()' style='padding:6px 10px;font-size:14px;font-weight:600'>&#8249;</button>"
+    +"<div style='text-align:center;flex:1'>"
+    +"<div style='font-size:14px;font-weight:700'>"+getWLB()+"</div>"
+    +"<div style='font-size:11px;color:#6b7280'>Click any shift to edit</div>"
+    +"</div>"
+    +"<button class='btn' onclick='nextWeek()' style='padding:6px 10px;font-size:14px;font-weight:600'>&#8250;</button>"
+    +"</div>"
+    +"<div style='display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px'>"
+    +"<select id='week-jump' onchange='jumpWeek(this.value)' style='padding:6px 10px;border:1px solid #d1d5db;border-radius:8px;font-size:12px'>"
+    +weekKeys.map(function(k){return "<option value='"+k+"'"+(k===currentWeekKey?" selected":"")+">"+weekLabels[k].label+"</option>";}).join("")
+    +"</select>"
+    +"<div style='margin-left:auto;display:flex;gap:6px;flex-wrap:wrap'>"
+    +"<button class='btn' onclick='copyWeekToNext()' style='border-color:#7c3aed;color:#7c3aed'>Copy to next week</button>"
+    +"<button class='btn btw' onclick='sendSMS()'>SMS all</button>"
+    +"<button class='btn btp' onclick='pubRoster()'>Publish</button>"
+    +"<button class='btn btg' onclick='oAssign()'>+ Assign</button>"
+    +"</div></div>"
+    +"<div style='overflow-x:auto;border-radius:12px;border:1px solid #e5e7eb'>"
+    +"<table class='rtbl'><thead><tr>"+h+"</tr></thead><tbody>"+b+"</tbody></table></div>"
+    +"<div style='margin-top:8px;font-size:11px;color:#9ca3af'>Tap any shift to edit</div>");
+  document.getElementById("e-venue").innerHTML=vo();
+  document.getElementById("a-venue").innerHTML=vo();
+  document.getElementById("a-staff").innerHTML=STAFF.map(function(s){return "<option value='"+s.id+"'>"+s.name+"</option>";}).join("");
+  document.getElementById("a-day").innerHTML=DAYS.map(function(d){return "<option>"+d+"</option>";}).join("");
+}
+
+function oEdit(sid,di,val){
+  editCtx={sid:sid,di:di};
+  var s=STAFF.find(function(x){return x.id===sid;});
+  document.getElementById("etit").textContent=s.name+" - "+DS[di];
+  document.getElementById("e-venue").innerHTML=vo(val.split(" ")[0]);
+  om("m-edit");
+}
+
+function svEdit(){
+  if(!editCtx)return;
+  var v=document.getElementById("e-venue").value;
+  var s=document.getElementById("e-start").value;
+  var e=document.getElementById("e-end").value;
+  var label=v==="OFF"?"OFF":v+" "+s+"-"+e;
+  if(!ROSTER[editCtx.sid])ROSTER[editCtx.sid]={};
+  ROSTER[editCtx.sid][editCtx.di]=label;
+  fbw("roster/"+editCtx.sid+"/"+editCtx.di,label);
+  var nm=STAFF.find(function(x){return x.id===editCtx.sid;}).name;
+  saveWeekRoster();
+  addN("Shift updated: "+nm+" - "+getWDS()[editCtx.di]);
+  cm("m-edit");rRoster();
+}
+
+function rmShift(){
+  if(!editCtx)return;
+  if(!ROSTER[editCtx.sid])ROSTER[editCtx.sid]={};
+  ROSTER[editCtx.sid][editCtx.di]="OFF";
+  fbw("roster/"+editCtx.sid+"/"+editCtx.di,"OFF");
+  cm("m-edit");rRoster();
+}
+
+function oAssign(){om("m-assign");}
+
+function svAssign(){
+  var sid=document.getElementById("a-staff").value;
+  var day=document.getElementById("a-day").value;
+  var di=DAYS.indexOf(day);
+  var v=document.getElementById("a-venue").value;
+  var s=document.getElementById("a-start").value;
+  var e=document.getElementById("a-end").value;
+  if(!ROSTER[sid])ROSTER[sid]={};
+  var label=v==="OFF"?"OFF":v+" "+s+"-"+e;
+  ROSTER[sid][di]=label;
+  fbw("roster/"+sid+"/"+di,label);
+  var nm=STAFF.find(function(x){return x.id===sid;}).name;
+  saveWeekRoster();
+  addN("Shift assigned: "+nm+" - "+getWDS()[di]);
+  cm("m-assign");rRoster();
+}
+
+function jumpWeek(key){
+  currentWeekKey=key;
+  loadWeekRoster();
+  goTab("roster");
+}
+
+function pubRoster(){
+  saveWeekRoster();
+  addN("Roster published for "+getWLB());
+  alert("Roster published for "+getWLB()+"!");
+  var sw=STAFF.filter(function(s){return s.email&&s.email.indexOf("@")>=0;});
+  if(sw.length>0&&confirm("Send email notifications to "+sw.length+" staff?")){
+    sendEmails(sw);
+  }
+}
+
+function sendSMS(){addN("SMS sent to all staff");alert("SMS reminders sent!");}
+
+function sendEmails(staffList){
+  if(typeof emailjs==="undefined"){alert("Email service loading, try again in a moment.");return;}
+  emailjs.init(EJS_KEY);
+  var sent=0,failed=0;
+  var promises=staffList.map(function(s){
+    var shifts=DAYS.map(function(d,di){return d+": "+((ROSTER[s.id]&&ROSTER[s.id][di])||"OFF");}).join("\n");
+    return emailjs.send(EJS_SVC,EJS_TPL,{to_email:s.email,to_name:s.name,my_shifts:shifts}).then(function(){sent++;}).catch(function(){failed++;});
+  });
+  Promise.all(promises).then(function(){
+    addN("Emails sent: "+sent+" ok"+(failed>0?", "+failed+" failed":""));
+    alert("Done! "+sent+" email(s) sent"+(failed>0?"\n"+failed+" failed":"")+".");
+  });
+}
+
+function rStaff(){
+  var rows=STAFF.map(function(s){
+    var dot=s.status==="working"?"dot-w":s.status==="break"?"dot-b":"dot-o";
+    var stxt=s.status==="working"?"Working":s.status==="break"?"On break":"Off";
+    var sh=Object.values(ROSTER[s.id]||{}).filter(function(v){return v&&v!=="OFF";}).length;
+    return "<div class='srow'>"
+      +"<div style='display:flex;align-items:center;gap:10px;flex:1'>"
+      +"<div class='av'>"+s.name.slice(0,2).toUpperCase()+"</div>"
+      +"<div><div style='font-size:13px;font-weight:600'>"+s.name+"</div>"
+      +"<div style='font-size:11px;color:#6b7280'>"+s.role+" - "+s.phone+" - "+sh+" shifts</div>"
+      +"<div style='font-size:11px;color:#6b7280'>"+(s.email?"Email: "+s.email:"No email set")+"</div></div>"
+      +"</div>"
+      +"<div style='display:flex;align-items:center;gap:6px'>"
+      +"<span class='sdot "+dot+"'></span><span style='font-size:11px;color:#6b7280'>"+stxt+"</span>"
+      +"<button class='btn' style='padding:4px 8px;font-size:11px;background:#eff6ff;color:#1d4ed8' onclick='oEds(\""+s.id+"\")'>Edit</button>"
+      +"<button class='btn btd' style='padding:4px 8px;font-size:11px' onclick='delMbr(\""+s.id+"\")'>Delete</button>"
+      +"</div></div>";
+  }).join("");
+  pg("<div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:12px'>"
+    +"<span class='sec' style='margin:0'>Team ("+STAFF.length+")</span>"
+    +"<button class='btn btg' onclick='om(\"m-add\")'>+ Add member</button></div>"+rows);
+}
+
+function doAdd(){
+  var f=document.getElementById("ns-f").value.trim();
+  var l=document.getElementById("ns-l").value.trim();
+  if(!f){alert("Enter first name");return;}
+  var id="s"+Date.now();
+  var m={id:id,name:f+(l?" "+l:""),role:document.getElementById("ns-r").value,phone:document.getElementById("ns-p").value.trim(),email:document.getElementById("ns-e").value.trim(),status:"off"};
+  STAFF.push(m);ROSTER[id]={};
+  var av={};DAYS.forEach(function(_,i){av[i]="yes";});avail[id]=av;
+  fbw("staff/"+id,m);fbw("roster/"+id,{});fbw("availability/"+id,av);
+  addN(m.name+" added to team");cm("m-add");rStaff();
+}
+
+function oEds(sid){
+  eid=sid;
+  var s=STAFF.find(function(x){return x.id===sid;});
+  var parts=s.name.split(" ");
+  document.getElementById("es-f").value=parts[0]||"";
+  document.getElementById("es-l").value=parts.slice(1).join(" ")||"";
+  document.getElementById("es-r").value=s.role||"Staff";
+  document.getElementById("es-p").value=s.phone||"";
+  document.getElementById("es-e").value=s.email||"";
+  om("m-eds");
+}
+
+function svEds(){
+  if(!eid)return;
+  var s=STAFF.find(function(x){return x.id===eid;});if(!s)return;
+  var f=document.getElementById("es-f").value.trim();
+  if(!f){alert("Enter first name");return;}
+  s.name=f+(document.getElementById("es-l").value.trim()?" "+document.getElementById("es-l").value.trim():"");
+  s.role=document.getElementById("es-r").value;
+  s.phone=document.getElementById("es-p").value.trim();
+  s.email=document.getElementById("es-e").value.trim();
+  fbw("staff/"+eid,s);
+  addN(s.name+" details updated");cm("m-eds");rStaff();
+}
+
+function delMbr(sid){
+  if(!confirm("Delete this team member?"))return;
+  var i=STAFF.findIndex(function(s){return s.id===sid;});
+  if(i>-1){fbd("staff/"+sid);fbd("roster/"+sid);STAFF.splice(i,1);delete ROSTER[sid];}
+  rStaff();
+}
+
+function rSwap(){
+  var isM=mode==="manager";
+  var list=isM?swaps:swaps.filter(function(r){return r.fromId===curId||r.toId===curId;});
+  var rows=list.map(function(r){
+    var bg=r.status==="approved"?"#dcfce7":r.status==="denied"?"#fee2e2":"#fef3c7";
+    var tc=r.status==="approved"?"#14532d":r.status==="denied"?"#7f1d1d":"#92400e";
+    return "<div class='sreq'>"
+      +"<div style='display:flex;justify-content:space-between;margin-bottom:6px'>"
+      +"<div><b>"+r.from+"</b> to "+r.to
+      +"<span class='badge' style='margin-left:6px;background:"+bg+";color:"+tc+"'>"+r.status+"</span></div>"
+      +"<span style='font-size:11px;color:#9ca3af'>"+r.ts+"</span></div>"
+      +"<div style='font-size:12px;color:#6b7280;margin-bottom:8px'>"+r.day+" - <span class='badge "+sc(r.shift)+"'>"+r.shift+"</span></div>"
+      +(r.status==="pending"?"<div style='display:flex;gap:6px'>"
+        +(isM?"<button class='btn btg' style='font-size:11px' onclick='apSwap(\""+r.id+"\")'>Approve</button>"
+        +"<button class='btn btd' style='font-size:11px' onclick='dnSwap(\""+r.id+"\")'>Deny</button>":"")
+        +(!isM&&r.fromId===curId?"<button class='btn btd' style='font-size:11px' onclick='dnSwap(\""+r.id+"\")'>Cancel</button>":"")
+        +"</div>":"")
+      +"</div>";
+  }).join("");
+  var cs=STAFF.find(function(s){return s.id===curId;});
+  var form=(!isM&&cs)?"<div class='card'><div class='sec'>Request a swap</div>"
+    +"<div class='fgrow'>"
+    +"<div class='fg'><label>My shift day</label><select id='sw-day'>"+DAYS.map(function(d){return "<option>"+d+"</option>";}).join("")+"</select></div>"
+    +"<div class='fg'><label>Swap with</label><select id='sw-with'>"+STAFF.filter(function(s){return s.id!==curId;}).map(function(s){return "<option value='"+s.id+"'>"+s.name+"</option>";}).join("")+"</select></div>"
+    +"</div><div class='fg'><label>Reason</label><input id='sw-rsn' placeholder='e.g. Family'></div>"
+    +"<button class='btn btp' style='margin-top:8px' onclick='subSwap()'>Submit request</button></div>":"";
+  pg("<div class='sec'>"+(isM?"All swap requests":"Swap shifts")+"</div>"+form
+    +"<div class='card'><div class='sec'>Requests</div>"+(rows||"<div style='font-size:12px;color:#9ca3af'>No requests yet.</div>")+"</div>");
+}
+
+function apSwap(id){
+  var r=swaps.find(function(x){return x.id===id;});if(!r)return;
+  r.status="approved";fbw("swaps/"+id+"/status","approved");
+  var di=DAYS.indexOf(r.day);
+  var fs=(ROSTER[r.fromId]&&ROSTER[r.fromId][di])||"OFF";
+  var ts=(ROSTER[r.toId]&&ROSTER[r.toId][di])||"OFF";
+  if(!ROSTER[r.fromId])ROSTER[r.fromId]={};if(!ROSTER[r.toId])ROSTER[r.toId]={};
+  ROSTER[r.fromId][di]=ts;ROSTER[r.toId][di]=fs;
+  fbw("roster/"+r.fromId+"/"+di,ts);fbw("roster/"+r.toId+"/"+di,fs);
+  addN("Swap approved: "+r.from+" and "+r.to);rSwap();
+}
+
+function dnSwap(id){
+  var r=swaps.find(function(x){return x.id===id;});
+  if(r){r.status="denied";fbw("swaps/"+id+"/status","denied");}rSwap();
+}
+
+function subSwap(){
+  var day=document.getElementById("sw-day").value;
+  var di=DAYS.indexOf(day);
+  var cs=STAFF.find(function(s){return s.id===curId;});
+  var toId=document.getElementById("sw-with").value;
+  var ts=STAFF.find(function(s){return s.id===toId;});
+  var id="sw"+Date.now();
+  var req={id:id,fromId:curId,from:cs.name,toId:toId,to:ts.name,day:day,shift:(ROSTER[curId]&&ROSTER[curId][di])||"OFF",reason:document.getElementById("sw-rsn").value,status:"pending",ts:new Date().toLocaleTimeString()};
+  swaps.unshift(req);fbw("swaps/"+id,req);
+  addN(cs.name+" requested swap with "+ts.name);rSwap();
+}
+
+function rReports(){
+  var total=0,offC=0,staffed={},venues={};
+  DAYS.forEach(function(_,di){STAFF.forEach(function(s){
+    var v=(ROSTER[s.id]&&ROSTER[s.id][di])||"OFF";
+    if(v==="OFF"){offC++;return;}total++;staffed[s.id]=1;
+    var k=v.replace(/\s+[\d:.\-\/]+.*/,"").trim();venues[k]=(venues[k]||0)+1;
+  });});
+  var vr=Object.entries(venues).sort(function(a,b){return b[1]-a[1];}).slice(0,10).map(function(kv){
+    return "<div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #f3f4f6;font-size:12px'>"
+      +"<span>"+kv[0]+"</span><div style='display:flex;align-items:center;gap:8px'>"
+      +"<div style='width:"+Math.round(kv[1]/Math.max(total,1)*100)+"px;max-width:100px;height:6px;background:#3b82f6;border-radius:3px'></div><b>"+kv[1]+"</b></div></div>";
+  }).join("");
+  var sr=STAFF.map(function(s){
+    var sh=Object.values(ROSTER[s.id]||{}).filter(function(v){return v&&v!=="OFF";}).length;
+    return "<div style='display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid #f3f4f6;font-size:12px'>"
+      +"<span style='min-width:80px;font-weight:500'>"+s.name+"</span>"
+      +"<div style='flex:1;height:6px;background:#f3f4f6;border-radius:3px;overflow:hidden'><div style='width:"+Math.round(sh/7*100)+"%;height:100%;background:#2563eb'></div></div>"
+      +"<b>"+sh+"</b></div>";}).join("");
+  var db=DS.map(function(d,di){
+    var c=STAFF.filter(function(s){return ROSTER[s.id]&&ROSTER[s.id][di]&&ROSTER[s.id][di]!=="OFF";}).length;
+    return "<div style='flex:1;text-align:center'><div style='font-size:10px;color:#6b7280;margin-bottom:4px'>"+d+"</div>"
+      +"<div style='height:50px;background:#f3f4f6;border-radius:6px;position:relative;overflow:hidden'>"
+      +"<div style='position:absolute;bottom:0;left:0;right:0;height:"+Math.round(c/Math.max(STAFF.length,1)*100)+"%;background:#3b82f6;border-radius:6px 6px 0 0'></div></div>"
+      +"<div style='font-size:11px;margin-top:3px;font-weight:600'>"+c+"</div></div>";}).join("");
+  pg("<div class='g4'>"
+    +"<div class='met'><div class='ml'>Total shifts</div><div class='mv'>"+total+"</div></div>"
+    +"<div class='met'><div class='ml'>Staff rostered</div><div class='mv'>"+Object.keys(staffed).length+"</div></div>"
+    +"<div class='met'><div class='ml'>Days off</div><div class='mv'>"+offC+"</div></div>"
+    +"<div class='met'><div class='ml'>Team size</div><div class='mv'>"+STAFF.length+"</div></div>"
+    +"</div><div class='g2'>"
+    +"<div class='card'><div class='sec'>By venue</div>"+vr+"</div>"
+    +"<div class='card'><div class='sec'>By staff member</div>"+sr+"</div>"
+    +"</div><div class='card'><div class='sec'>Staff per day</div><div style='display:flex;gap:6px'>"+db+"</div></div>");
+}
+
+
+// ── DRAFT ROSTER BUILDER ─────────────────────────────
+var draft = {};
+var currentWeekKey = "2025-W21"; // default week
+var allWeeks = {}; // stores rosters per week key
+var weekLabels = {
+  "2025-W21": {label:"Week of Mon 18 – Sun 24 May", days:["Mon 18/5","Tue 19/5","Wed 20/5","Thu 21/5","Fri 22/5","Sat 23/5","Sun 24/5"], full:["Monday 18/5","Tuesday 19/5","Wednesday 20/5","Thursday 21/5","Friday 22/5","Saturday 23/5","Sunday 24/5"]},
+  "2025-W22": {label:"Week of Mon 25 – Sun 31 May", days:["Mon 25/5","Tue 26/5","Wed 27/5","Thu 28/5","Fri 29/5","Sat 30/5","Sun 31/5"], full:["Monday 25/5","Tuesday 26/5","Wednesday 27/5","Thursday 28/5","Friday 29/5","Saturday 30/5","Sunday 31/5"]},
+  "2025-W23": {label:"Week of Mon 1 – Sun 7 Jun",   days:["Mon 1/6","Tue 2/6","Wed 3/6","Thu 4/6","Fri 5/6","Sat 6/6","Sun 7/6"],   full:["Monday 1/6","Tuesday 2/6","Wednesday 3/6","Thursday 4/6","Friday 5/6","Saturday 6/6","Sunday 7/6"]},
+  "2025-W24": {label:"Week of Mon 8 – Sun 14 Jun",  days:["Mon 8/6","Tue 9/6","Wed 10/6","Thu 11/6","Fri 12/6","Sat 13/6","Sun 14/6"], full:["Monday 8/6","Tuesday 9/6","Wednesday 10/6","Thursday 11/6","Friday 12/6","Saturday 13/6","Sunday 14/6"]},
+  "2025-W25": {label:"Week of Mon 15 – Sun 21 Jun", days:["Mon 15/6","Tue 16/6","Wed 17/6","Thu 18/6","Fri 19/6","Sat 20/6","Sun 21/6"], full:["Monday 15/6","Tuesday 16/6","Wednesday 17/6","Thursday 18/6","Friday 19/6","Saturday 20/6","Sunday 21/6"]},
+  "2025-W26": {label:"Week of Mon 22 – Sun 28 Jun", days:["Mon 22/6","Tue 23/6","Wed 24/6","Thu 25/6","Fri 26/6","Sat 27/6","Sun 28/6"], full:["Monday 22/6","Tuesday 23/6","Wednesday 24/6","Thursday 25/6","Friday 26/6","Saturday 27/6","Sunday 28/6"]},
+  "2025-W27": {label:"Week of Mon 29 Jun – Sun 5 Jul", days:["Mon 29/6","Tue 30/6","Wed 1/7","Thu 2/7","Fri 3/7","Sat 4/7","Sun 5/7"], full:["Monday 29/6","Tuesday 30/6","Wednesday 1/7","Thursday 2/7","Friday 3/7","Saturday 4/7","Sunday 5/7"]},
+  "2025-W28": {label:"Week of Mon 6 – Sun 12 Jul", days:["Mon 6/7","Tue 7/7","Wed 8/7","Thu 9/7","Fri 10/7","Sat 11/7","Sun 12/7"], full:["Monday 6/7","Tuesday 7/7","Wednesday 8/7","Thursday 9/7","Friday 10/7","Saturday 11/7","Sunday 12/7"]},
+};
+var weekKeys = Object.keys(weekLabels);
+
+function getWDS(){ return weekLabels[currentWeekKey] ? weekLabels[currentWeekKey].days : DS; }
+function getWFL(){ return weekLabels[currentWeekKey] ? weekLabels[currentWeekKey].full : DAYS; }
+function getWLB(){ return weekLabels[currentWeekKey] ? weekLabels[currentWeekKey].label : "Current Week"; }
+function prevWeek(){ var i=weekKeys.indexOf(currentWeekKey); if(i>0){currentWeekKey=weekKeys[i-1]; loadWeekRoster(); goTab("roster");} else alert("No earlier weeks available."); }
+function nextWeek(){ var i=weekKeys.indexOf(currentWeekKey); if(i<weekKeys.length-1){currentWeekKey=weekKeys[i+1]; loadWeekRoster(); goTab("roster");} else alert("No more weeks. Add more in settings."); }
+
+function loadWeekRoster(){
+  if(allWeeks[currentWeekKey]){
+    ROSTER=JSON.parse(JSON.stringify(allWeeks[currentWeekKey]));
+  } else {
+    // empty roster for new week
+    ROSTER={};
+    STAFF.forEach(function(s){ROSTER[s.id]={};DAYS.forEach(function(_,i){ROSTER[s.id][i]="OFF";});});
+  }
+  // also update DAYS/DS for current week
+  if(weekLabels[currentWeekKey]){
+    DAYS=weekLabels[currentWeekKey].full;
+    DS=weekLabels[currentWeekKey].days;
+  }
+}
+
+function saveWeekRoster(){
+  allWeeks[currentWeekKey]=JSON.parse(JSON.stringify(ROSTER));
+  fbw("weekrosters/"+currentWeekKey, ROSTER);
+}
+
+function copyWeekToNext(){
+  var i=weekKeys.indexOf(currentWeekKey);
+  if(i>=weekKeys.length-1){alert("No next week to copy to.");return;}
+  var nextKey=weekKeys[i+1];
+  if(allWeeks[nextKey]&&Object.values(allWeeks[nextKey]).some(function(r){return Object.values(r).some(function(v){return v!=="OFF"&&v;});})){
+    if(!confirm("Next week already has a roster. Overwrite it?"))return;
+  }
+  allWeeks[nextKey]=JSON.parse(JSON.stringify(ROSTER));
+  fbw("weekrosters/"+nextKey, ROSTER);
+  alert("Roster copied to "+weekLabels[nextKey].label+"!");
+}
+
+function rBuilder(){
+  // Init draft from current roster if empty
+  if(Object.keys(draft).length===0){
+    STAFF.forEach(function(s){
+      draft[s.id] = {};
+      DAYS.forEach(function(_,di){
+        draft[s.id][di] = (ROSTER[s.id]&&ROSTER[s.id][di])||"OFF";
+      });
+    });
+  }
+  var wds=getWDS(); var head="<th style='width:90px'>Staff</th>"+wds.map(function(d){return "<th style='min-width:90px'>"+d+"</th>";}).join("");
+  var body=STAFF.map(function(s){
+    var cells=DAYS.map(function(_,di){
+      var v=(draft[s.id]&&draft[s.id][di])||"OFF";
+      return "<td><select onchange='draftChange(""+s.id+"","+di+",this.value)' style='width:100%;padding:3px;font-size:10px;border:1px solid #d1d5db;border-radius:4px;background:"+(v==="OFF"?"#f3f4f6":"#eff6ff")+";color:"+(v==="OFF"?"#9ca3af":"#1d4ed8")+"'>"
+        + VN.map(function(vn){return "<option"+(vn===v?" selected":"")+">"+vn+"</option>";}).join("")
+        +"</select></td>";
+    }).join("");
+    return "<tr><td style='font-weight:600;font-size:11px;white-space:nowrap;padding:6px'>"+s.name+"</td>"+cells+"</tr>";
+  }).join("");
+
+  // Count draft stats
+  var total=0, offC=0;
+  STAFF.forEach(function(s){DAYS.forEach(function(_,di){
+    var v=(draft[s.id]&&draft[s.id][di])||"OFF";
+    if(v==="OFF")offC++; else total++;
+  });});
+
+  pg("<div style='display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap'>"
+    +"<div>"
+    +"<div style='font-size:15px;font-weight:700'>Draft Roster Builder</div>"
+    +"<div style='font-size:12px;color:#6b7280'>"+getWLB()+" &nbsp;|&nbsp; "+total+" shifts planned &nbsp;|&nbsp; "+offC+" days off</div>"
+    +"</div>"
+    +"<div style='margin-left:auto;display:flex;gap:6px;flex-wrap:wrap'>"
+    +"<button class='btn' onclick='clearDraft()' style='border-color:#dc2626;color:#dc2626'>Clear draft</button>"
+    +"<button class='btn' onclick='fillFromRoster()'>Load current roster</button>"
+    +"<button class='btn btw' onclick='autoFill()'>Auto-fill from availability</button>"
+    +"<button class='btn btp' onclick='publishDraft()'>Publish roster</button>"
+    +"</div></div>"
+    +"<div style='background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:10px 12px;margin-bottom:12px;font-size:12px;color:#92400e'>"
+    +"Draft is saved locally. Click <b>Publish roster</b> to make it live for all staff.</div>"
+    +"<div style='overflow-x:auto;border-radius:12px;border:1px solid #e5e7eb'>"
+    +"<table class='rtbl'><thead><tr>"+head+"</tr></thead><tbody>"+body+"</tbody></table></div>"
+    +"<div style='margin-top:12px;display:flex;gap:6px;flex-wrap:wrap'>"
+    +"<button class='btn btp' style='padding:10px 20px;font-size:13px' onclick='publishDraft()'>Publish this roster live</button>"
+    +"<button class='btn' onclick='previewDraft()'>Preview</button>"
+    +"</div>");
+}
+
+function draftChange(sid,di,val){
+  if(!draft[sid])draft[sid]={};
+  draft[sid][di]=val;
+  // Re-render to update stats without full reload
+  var sel=event.target;
+  sel.style.background=val==="OFF"?"#f3f4f6":"#eff6ff";
+  sel.style.color=val==="OFF"?"#9ca3af":"#1d4ed8";
+}
+
+function clearDraft(){
+  if(!confirm("Clear entire draft roster?"))return;
+  STAFF.forEach(function(s){draft[s.id]={};DAYS.forEach(function(_,di){draft[s.id][di]="OFF";});});
+  rBuilder();
+}
+
+function fillFromRoster(){
+  STAFF.forEach(function(s){
+    draft[s.id]={};
+    DAYS.forEach(function(_,di){draft[s.id][di]=(ROSTER[s.id]&&ROSTER[s.id][di])||"OFF";});
+  });
+  rBuilder();
+}
+
+function autoFill(){
+  // Fill based on availability - available=keep, unavailable=OFF
+  STAFF.forEach(function(s){
+    if(!draft[s.id])draft[s.id]={};
+    DAYS.forEach(function(_,di){
+      var av=(avail[s.id]&&avail[s.id][di])||"yes";
+      if(av==="no") draft[s.id][di]="OFF";
+    });
+  });
+  rBuilder();
+  alert("Auto-filled! Staff marked unavailable have been set to OFF. Review and adjust shifts as needed.");
+}
+
+function previewDraft(){
+  var lines=STAFF.map(function(s){
+    return s.name+": "+DAYS.map(function(_,di){return (draft[s.id]&&draft[s.id][di])||"OFF";}).join(" | ");
+  }).join("\n");
+  alert("DRAFT PREVIEW:\n\n"+lines);
+}
+
+function publishDraft(){
+  if(!confirm("Publish this draft roster? All staff will see the updated shifts."))return;
+  // Copy draft to live roster
+  STAFF.forEach(function(s){
+    ROSTER[s.id]={};
+    DAYS.forEach(function(_,di){
+      ROSTER[s.id][di]=(draft[s.id]&&draft[s.id][di])||"OFF";
+      fbw("roster/"+s.id+"/"+di,ROSTER[s.id][di]);
+    });
+  });
+  addN("Roster published for "+draftWeek);
+  var sw=STAFF.filter(function(s){return s.email&&s.email.indexOf("@")>=0;});
+  if(sw.length>0&&confirm("Send email notifications to "+sw.length+" staff with email addresses?")){
+    sendEmails(sw);
+  }
+  alert("Roster published! Staff can now see their shifts.");
+  goTab("roster");
+}
+
+// ── ANALYTICS ────────────────────────────────────────
+function rAnalytics(){
+  // Calculate hours per staff (estimate based on shifts)
+  var staffHours=STAFF.map(function(s){
+    var shifts=DAYS.map(function(_,di){return (ROSTER[s.id]&&ROSTER[s.id][di])||"OFF";}).filter(function(v){return v!=="OFF";});
+    // Parse hours from shift label e.g. "NETBALL 5:30-10:00"
+    var hrs=shifts.reduce(function(tot,v){
+      var m=v.match(/(\d+):(\d+)-(\d+):(\d+)/);
+      if(m){var s2=parseInt(m[1])*60+parseInt(m[2]);var e2=parseInt(m[3])*60+parseInt(m[4]);return tot+(e2>s2?(e2-s2)/60:0);}
+      return tot+(shifts.length>0?4:0); // default 4hrs if no time given
+    },0);
+    return {name:s.name,role:s.role,shifts:shifts.length,hours:Math.round(hrs*10)/10,status:s.status};
+  }).sort(function(a,b){return b.hours-a.hours;});
+
+  var totalHrs=staffHours.reduce(function(t,s){return t+s.hours;},0);
+  var totalShifts=staffHours.reduce(function(t,s){return t+s.shifts;},0);
+  var working=staffHours.filter(function(s){return s.status==="working";}).length;
+  var maxH=Math.max.apply(null,staffHours.map(function(s){return s.hours;}));
+
+  // Day breakdown
+  var dayStats=DS.map(function(d,di){
+    var count=STAFF.filter(function(s){return ROSTER[s.id]&&ROSTER[s.id][di]&&ROSTER[s.id][di]!=="OFF";}).length;
+    var hrs=STAFF.reduce(function(tot,s){
+      var v=(ROSTER[s.id]&&ROSTER[s.id][di])||"OFF";
+      if(v==="OFF")return tot;
+      var m=v.match(/(\d+):(\d+)-(\d+):(\d+)/);
+      if(m){var s2=parseInt(m[1])*60+parseInt(m[2]);var e2=parseInt(m[3])*60+parseInt(m[4]);return tot+(e2>s2?(e2-s2)/60:0);}
+      return tot+4;
+    },0);
+    return {d:d,count:count,hrs:Math.round(hrs*10)/10};
+  });
+  var maxDayH=Math.max.apply(null,dayStats.map(function(d){return d.hrs;}));
+
+  // Hours bar chart
+  var hbars=staffHours.map(function(s){
+    var pct=maxH>0?Math.round(s.hours/maxH*100):0;
+    var col=s.hours>20?"#dc2626":s.hours>10?"#2563eb":"#16a34a";
+    return "<div style='display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid #f3f4f6;font-size:12px'>"
+      +"<span style='min-width:80px;font-weight:500'>"+s.name+"</span>"
+      +"<div style='flex:1;height:10px;background:#f3f4f6;border-radius:5px;overflow:hidden'>"
+      +"<div style='width:"+pct+"%;height:100%;background:"+col+";border-radius:5px'></div></div>"
+      +"<span style='min-width:50px;text-align:right'><b>"+s.hours+"h</b> / "+s.shifts+" shifts</span></div>";
+  }).join("");
+
+  // Day hours chart
+  var dayChart=dayStats.map(function(d){
+    var pct=maxDayH>0?Math.round(d.hrs/maxDayH*80):0;
+    return "<div style='flex:1;text-align:center'>"
+      +"<div style='font-size:10px;color:#6b7280;margin-bottom:4px'>"+d.d+"</div>"
+      +"<div style='height:80px;background:#f3f4f6;border-radius:6px;position:relative;overflow:hidden'>"
+      +"<div style='position:absolute;bottom:0;left:0;right:0;height:"+pct+"%;background:#3b82f6;border-radius:6px 6px 0 0'></div></div>"
+      +"<div style='font-size:10px;margin-top:3px;font-weight:600'>"+d.hrs+"h</div>"
+      +"<div style='font-size:10px;color:#6b7280'>"+d.count+" staff</div></div>";
+  }).join("");
+
+  // Role breakdown
+  var roles={};
+  STAFF.forEach(function(s){roles[s.role]=(roles[s.role]||0)+1;});
+  var rolePills=Object.entries(roles).map(function(kv){
+    return "<span style='padding:4px 12px;background:#eff6ff;color:#1d4ed8;border-radius:20px;font-size:12px;font-weight:500'>"+kv[0]+": "+kv[1]+"</span>";
+  }).join(" ");
+
+  // Currently clocked in
+  var onNow=STAFF.filter(function(s){return s.status==="working";});
+  var onBreakNow=STAFF.filter(function(s){return s.status==="break";});
+
+  pg("<div class='sec'>Analytics Dashboard</div>"
+    +"<div class='g4'>"
+    +"<div class='met'><div class='ml'>Total hours this week</div><div class='mv'>"+Math.round(totalHrs)+"h</div></div>"
+    +"<div class='met'><div class='ml'>Total shifts</div><div class='mv'>"+totalShifts+"</div></div>"
+    +"<div class='met'><div class='ml'>Currently working</div><div class='mv' style='color:#22c55e'>"+working+"</div></div>"
+    +"<div class='met'><div class='ml'>On break now</div><div class='mv' style='color:#f59e0b'>"+onBreakNow.length+"</div></div>"
+    +"</div>"
+
+    // Live status
+    +"<div class='card'><div class='sec'>Live staff status</div>"
+    +(onNow.length>0?"<div style='margin-bottom:8px;font-size:12px;color:#22c55e;font-weight:500'>Working now: "+onNow.map(function(s){return s.name;}).join(", ")+"</div>":"")
+    +(onBreakNow.length>0?"<div style='margin-bottom:8px;font-size:12px;color:#f59e0b;font-weight:500'>On break: "+onBreakNow.map(function(s){return s.name;}).join(", ")+"</div>":"")
+    +(onNow.length===0&&onBreakNow.length===0?"<div style='font-size:12px;color:#9ca3af'>No staff currently clocked in.</div>":"")
+    +"</div>"
+
+    // Day by day hours
+    +"<div class='card'><div class='sec'>Hours by day</div>"
+    +"<div style='display:flex;gap:6px;align-items:flex-end'>"+dayChart+"</div></div>"
+
+    // Staff hours
+    +"<div class='card'><div class='sec'>Hours per staff member (estimated)</div>"
+    +"<div style='font-size:11px;color:#6b7280;margin-bottom:8px'>Blue = normal, Green = low hours, Red = high hours</div>"
+    +hbars+"</div>"
+
+    // Role breakdown
+    +"<div class='card'><div class='sec'>Team breakdown by role</div>"
+    +"<div style='display:flex;gap:8px;flex-wrap:wrap'>"+rolePills+"</div></div>"
+
+    // Availability conflicts
+    +"<div class='card'><div class='sec'>Availability conflicts</div>"
+    +"<div style='font-size:12px;color:#6b7280;margin-bottom:10px'>Staff rostered on days they marked unavailable</div>"
+    +function(){
+      var conflicts=[];
+      STAFF.forEach(function(s){
+        DAYS.forEach(function(_,di){
+          var shift=(ROSTER[s.id]&&ROSTER[s.id][di])||"OFF";
+          var av=(avail[s.id]&&avail[s.id][di])||"yes";
+          if(shift!=="OFF"&&av==="no") conflicts.push({name:s.name,day:DAYS[di],shift:shift});
+        });
+      });
+      if(conflicts.length===0) return "<div style='font-size:12px;color:#22c55e'>No conflicts found!</div>";
+      return conflicts.map(function(c){
+        return "<div style='display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #f3f4f6;font-size:12px'>"
+          +"<span style='color:#ef4444;font-size:14px'>!</span>"
+          +"<b>"+c.name+"</b> is rostered on <b>"+c.day+"</b> but marked unavailable"
+          +"</div>";
+      }).join("");
+    }()
+    +"</div>");
+}
+
+function rExport(){
+  pg("<div class='sec'>Export and Share</div>"
+    +"<div class='card' style='background:#eff6ff;border-color:#bfdbfe'>"
+    +"<div style='font-size:13px;font-weight:600;color:#1d4ed8;margin-bottom:4px'>Your app link</div>"
+    +"<div style='font-size:12px;color:#1d4ed8;word-break:break-all'>"+window.location.href+"</div>"
+    +"<button class='btn btp' style='margin-top:8px' onclick='cpLink()'>Copy link</button></div>"
+    +"<div class='eopt' onclick='expCSV()'><div style='display:flex;align-items:center;gap:12px'>"
+    +"<div style='width:36px;height:36px;border-radius:8px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;font-size:18px'>CSV</div>"
+    +"<div><div style='font-size:13px;font-weight:600'>Export as CSV</div><div style='font-size:11px;color:#6b7280'>Download for Excel or Sheets</div></div>"
+    +"</div><span>></span></div>"
+    +"<div class='eopt' onclick='sendEmails(STAFF.filter(function(s){return s.email&&s.email.indexOf(\"@\")>=0;}))'>"
+    +"<div style='display:flex;align-items:center;gap:12px'>"
+    +"<div style='width:36px;height:36px;border-radius:8px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-size:18px'>@</div>"
+    +"<div><div style='font-size:13px;font-weight:600'>Email roster to all staff</div><div style='font-size:11px;color:#6b7280'>Sends personal shifts to each person</div></div>"
+    +"</div><span>></span></div>"
+    +"<div class='eopt' onclick='window.print()'><div style='display:flex;align-items:center;gap:12px'>"
+    +"<div style='width:36px;height:36px;border-radius:8px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;font-size:18px'>P</div>"
+    +"<div><div style='font-size:13px;font-weight:600'>Print roster</div><div style='font-size:11px;color:#6b7280'>Print-friendly view</div></div>"
+    +"</div><span>></span></div>");
+}
+
+function expCSV(){
+  var rows=[["Staff","Role"].concat(DS)];
+  STAFF.forEach(function(s){rows.push([s.name,s.role].concat(DAYS.map(function(_,di){return (ROSTER[s.id]&&ROSTER[s.id][di])||"OFF";})));});
+  var csv=rows.map(function(r){return r.map(function(c){return '"'+c+'"';}).join(",");}).join("\n");
+  var a=document.createElement("a");a.href="data:text/csv;charset=utf-8,"+encodeURIComponent(csv);a.download="roster_churros.csv";a.click();
+}
+
+function cpLink(){
+  navigator.clipboard.writeText(window.location.href).then(function(){alert("Link copied!");}).catch(function(){prompt("Copy this:",window.location.href);});
+}
+
+function addN(text){
+  var n={id:"n"+Date.now(),icon:"bell",text:text,time:new Date().toLocaleTimeString(),read:false};
+  notifs.unshift(n);fbw("notifications/"+n.id,n);updNB();
+}
+
+function updNB(){
+  var b=document.getElementById("nbadge");
+  if(b)b.style.display=notifs.filter(function(n){return !n.read;}).length?"block":"none";
+}
+
+function rNotif(){
+  var rows=notifs.slice(0,20).map(function(n){
+    return "<div class='nitem "+(n.read?"":"unread")+"' onclick='mkRead(\""+n.id+"\")'>"
+      +"<div style='width:30px;height:30px;border-radius:50%;background:#f3f4f6;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px'>!</div>"
+      +"<div style='flex:1'><div style='font-size:12px'>"+n.text+"</div><div style='font-size:11px;color:#9ca3af;margin-top:2px'>"+n.time+"</div></div>"
+      +(!n.read?"<div style='width:7px;height:7px;border-radius:50%;background:#3b82f6;flex-shrink:0;margin-top:4px'></div>":"")
+      +"</div>";}).join("");
+  pg("<div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:12px'>"
+    +"<span class='sec' style='margin:0'>Notifications</span>"
+    +"<button class='btn' onclick='mkAllRead()' style='font-size:11px'>Mark all read</button></div>"
+    +"<div class='card' style='padding:0;overflow:hidden'>"+(rows||"<div style='padding:14px;font-size:12px;color:#9ca3af'>No notifications yet.</div>")+"</div>");
+}
+
+function mkRead(id){var n=notifs.find(function(x){return x.id===id;});if(n){n.read=true;fbw("notifications/"+id+"/read",true);}updNB();rNotif();}
+function mkAllRead(){notifs.forEach(function(n){n.read=true;fbw("notifications/"+n.id+"/read",true);});updNB();rNotif();}
+
+function rClock(){
+  var cs=STAFF.find(function(s){return s.id===curId;});if(!cs)return;
+  var myS=DAYS.map(function(d,di){return {d:d,v:(ROSTER[curId]&&ROSTER[curId][di])||"OFF"};}).filter(function(x){return x.v!=="OFF";});
+  var sr=myS.map(function(x){return "<div style='display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#f9fafb;border-radius:8px;margin-bottom:6px;font-size:12px'><span style='font-weight:500'>"+x.d+"</span><span class='badge "+sc(x.v)+"'>"+x.v+"</span></div>";}).join("");
+  var lr=clog.slice().reverse().map(function(e){return "<div class='loge'><span>"+e.type+"</span><span>"+e.time+(e.hrs?" ("+e.hrs+"h)":"")+"</span></div>";}).join("");
+  pg("<div class='g2'><div>"
+    +"<div class='card' style='text-align:center'>"
+    +"<div style='font-size:12px;color:#6b7280;margin-bottom:2px'>Current time</div>"
+    +"<div class='clkdisp' id='lclk'>--:--:--</div>"
+    +"<div style='font-size:12px;color:#6b7280;margin-bottom:12px' id='ldate'></div>"
+    +"<div style='font-size:12px;color:#6b7280;margin-bottom:12px'>"+(clkIn?(onBrk?"On break":"Clocked in")+" since "+(clkTime?clkTime.toLocaleTimeString():""):"Not clocked in")+"</div>"
+    +"<button class='pb "+(clkIn?"pcout":"pcin")+"' onclick='punch()'>"+(clkIn?"Clock Out":"Clock In")+"</button>"
+    +"<button class='pb pbrk' onclick='punchBrk()' style='display:"+(clkIn?"block":"none")+"'>"+(onBrk?"End Break":"Start Break")+"</button>"
+    +"</div>"
+    +"<div class='g2' style='grid-template-columns:1fr 1fr'>"
+    +"<div class='met'><div class='ml'>Hours this week</div><div class='mv'>"+parseFloat(wHrs).toFixed(1)+"</div></div>"
+    +"<div class='met'><div class='ml'>Shifts done</div><div class='mv'>"+wShifts+"</div></div>"
+    +"</div></div>"
+    +"<div>"
+    +"<div class='card'><div class='sec'>My shifts</div>"+(sr||"<div style='font-size:12px;color:#9ca3af'>No shifts.</div>")+"</div>"
+    +"<div class='card'><div class='sec'>Clock log</div><div class='hlog'>"+(lr||"<div style='font-size:12px;color:#9ca3af'>No entries yet.</div>")+"</div></div>"
+    +"</div></div>");
+  updClk();
+}
+
+function updClk(){
+  var lc=document.getElementById("lclk");if(!lc){if(clkTmr)clearTimeout(clkTmr);return;}
+  var now=new Date();lc.textContent=now.toLocaleTimeString();
+  var ld=document.getElementById("ldate");if(ld)ld.textContent=now.toLocaleDateString("en-AU",{weekday:"long",day:"numeric",month:"long"});
+  clkTmr=setTimeout(updClk,1000);
+}
+
+function punch(){pendPunch=clkIn?"out":"in";openCam();}
+
+function openCam(){
+  document.getElementById("camtit").textContent=pendPunch==="in"?"Take photo to Clock In":"Take photo to Clock Out";
+  document.getElementById("camprev").style.display="none";
+  document.getElementById("cambtns").style.display="block";
+  document.getElementById("camconf").style.display="none";
+  document.getElementById("camerr").style.display="none";
+  capPhoto=null;
+  om("m-cam");
+  var video=document.getElementById("camvid");
+  navigator.mediaDevices.getUserMedia({video:{facingMode:"user"},audio:false}).then(function(stream){
+    camStream=stream;video.srcObject=stream;
+  }).catch(function(){
+    video.style.display="none";
+    document.getElementById("cambtns").style.display="none";
+    document.getElementById("camerr").style.display="block";
+  });
+}
+
+function takePic(){
+  var video=document.getElementById("camvid");
+  var canvas=document.getElementById("camcvs");
+  canvas.width=video.videoWidth||320;canvas.height=video.videoHeight||240;
+  canvas.getContext("2d").drawImage(video,0,0);
+  capPhoto=canvas.toDataURL("image/jpeg",0.6);
+  document.getElementById("camimg").src=capPhoto;
+  document.getElementById("camprev").style.display="block";
+  document.getElementById("cambtns").style.display="none";
+  document.getElementById("camconf").style.display="block";
+}
+
+function retakePic(){
+  document.getElementById("camprev").style.display="none";
+  document.getElementById("cambtns").style.display="block";
+  document.getElementById("camconf").style.display="none";
+  capPhoto=null;
+}
+
+function cancelCam(){stopCam();cm("m-cam");}
+function skipCam(){stopCam();cm("m-cam");doPunch(null);}
+function confirmCam(){stopCam();cm("m-cam");doPunch(capPhoto);}
+function stopCam(){if(camStream){camStream.getTracks().forEach(function(t){t.stop();});camStream=null;}}
+
+function doPunch(photo){
+  if(pendPunch==="in"){
+    clkIn=true;onBrk=false;clkTime=new Date();
+    var cs=STAFF.find(function(s){return s.id===curId;});if(cs)cs.status="working";
+    fbw("staff/"+curId+"/status","working");
+    clog.push({type:"Clock in",time:clkTime.toLocaleTimeString(),photo:photo||""});
+    fbw("clocklog/"+curId+"/"+Date.now(),{type:"Clock in",time:clkTime.toISOString(),photo:photo||""});
+    wShifts++;
+  } else {
+    var now=new Date();var hrs=((now-clkTime)/3600000).toFixed(2);
+    wHrs=(parseFloat(wHrs)+parseFloat(hrs)).toFixed(2);
+    clkIn=false;onBrk=false;
+    var cs2=STAFF.find(function(s){return s.id===curId;});if(cs2)cs2.status="off";
+    fbw("staff/"+curId+"/status","off");
+    clog.push({type:"Clock out",time:now.toLocaleTimeString(),hrs:hrs,photo:photo||""});
+    fbw("clocklog/"+curId+"/"+Date.now(),{type:"Clock out",time:now.toISOString(),hours:hrs,photo:photo||""});
+  }
+  pendPunch=null;rClock();
+}
+
+function punchBrk(){
+  onBrk=!onBrk;
+  var cs=STAFF.find(function(s){return s.id===curId;});if(cs)cs.status=onBrk?"break":"working";
+  fbw("staff/"+curId+"/status",onBrk?"break":"working");
+  clog.push({type:onBrk?"Break start":"Break end",time:new Date().toLocaleTimeString()});
+  rClock();
+}
+
+function rAvail(){
+  var av=avail[curId]||{};
+  var days=DS.map(function(d,i){
+    var val=av[i]||"yes";
+    return "<div class='avday av-"+val+"' onclick='cycAv("+i+")'>"
+      +"<div style='font-weight:600;font-size:12px'>"+d.split(" ")[0]+"</div>"
+      +"<div style='font-size:10px;margin-top:2px'>"+d.split(" ")[1]+"</div>"
+      +"<div style='margin-top:5px;font-size:14px'>"+(val==="yes"?"Yes":val==="no"?"No":"Maybe")+"</div>"
+      +"</div>";}).join("");
+  pg("<div class='sec'>My availability - week of 18-24 May</div>"
+    +"<div style='display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;font-size:12px'>"
+    +"<span style='padding:3px 10px;background:#dcfce7;border:1px solid #16a34a;color:#14532d;border-radius:6px'>Yes</span>"
+    +"<span style='padding:3px 10px;background:#fef3c7;border:1px solid #d97706;color:#92400e;border-radius:6px'>Maybe</span>"
+    +"<span style='padding:3px 10px;background:#fee2e2;border:1px solid #dc2626;color:#7f1d1d;border-radius:6px'>No</span>"
+    +"<span style='color:#9ca3af;font-size:11px'>Tap to cycle</span></div>"
+    +"<div class='avgrid'>"+days+"</div>"
+    +"<div style='display:flex;gap:8px;flex-wrap:wrap'>"
+    +"<button class='btn btg' onclick='svAv()'>Save and send</button>"
+    +"<button class='btn' onclick='setAllAv(\"yes\")'>All available</button>"
+    +"<button class='btn btd' onclick='setAllAv(\"no\")'>All unavailable</button>"
+    +"</div>"
+    +"<div class='card' style='margin-top:12px'><div class='sec'>Notes for manager</div>"
+    +"<div class='fg'><textarea id='av-notes' placeholder='Any notes...' style='min-height:70px;resize:vertical'></textarea></div>"
+    +"<button class='btn btp' onclick='svAv()'>Submit to manager</button></div>");
+}
+
+function cycAv(i){
+  if(!avail[curId])avail[curId]={};
+  var c={yes:"maybe",maybe:"no",no:"yes"};
+  avail[curId][i]=c[avail[curId][i]||"yes"];rAvail();
+}
+
+function setAllAv(val){if(!avail[curId])avail[curId]={};DAYS.forEach(function(_,i){avail[curId][i]=val;});rAvail();}
+function svAv(){fbw("availability/"+curId,avail[curId]);addN("Availability submitted");alert("Availability saved!");}
+
+function rMysch(){
+  var cs=STAFF.find(function(s){return s.id===curId;});if(!cs)return;
+  var dm={1:0,2:1,3:2,4:3,5:4,6:5,0:6};var ti=dm[new Date().getDay()];
+  var sh=Object.values(ROSTER[curId]||{}).filter(function(v){return v&&v!=="OFF";}).length;
+  var vns=[...new Set(Object.values(ROSTER[curId]||{}).filter(function(v){return v&&v!=="OFF";}).map(function(v){return v.replace(/\s+[\d:.\-\/]+.*/,"").trim();}))];
+  var wfl=getWFL();
+  var rows=wfl.map(function(d,di){
+    var v=(ROSTER[curId]&&ROSTER[curId][di])||"OFF";
+    var isTd=di===ti;
+    return "<div class='schday "+(isTd?"today":"")+"'>"
+      +"<div><div style='font-size:13px;font-weight:600;"+(isTd?"color:#1d4ed8":"")+"'>"+d+(isTd?" - Today":"")+"</div></div>"
+      +"<span class='badge "+sc(v)+"'>"+v+"</span></div>";}).join("");
+  var wfl2=getWFL(); var wds2=getWDS();
+  pg("<div style='display:flex;align-items:center;gap:8px;margin-bottom:8px'>"
+    +"<button class='btn' onclick='prevWeek();rMysch()' style='padding:6px 10px;font-size:14px'>&#8249;</button>"
+    +"<span style='flex:1;text-align:center;font-size:13px;font-weight:600'>"+getWLB()+"</span>"
+    +"<button class='btn' onclick='nextWeek();rMysch()' style='padding:6px 10px;font-size:14px'>&#8250;</button>"
+    +"</div>"
+    +"<div style='display:flex;align-items:center;gap:12px;margin-bottom:16px'>"
+    +"<div class='av' style='width:42px;height:42px;font-size:15px'>"+cs.name.slice(0,2).toUpperCase()+"</div>"
+    +"<div><div style='font-size:16px;font-weight:700'>"+cs.name+"</div>"
+    +"<div style='font-size:12px;color:#6b7280'>"+cs.role+" - "+sh+" shifts this week</div></div>"
+    +"<div style='margin-left:auto'><button class='btn' onclick='expMyCal()' style='font-size:12px'>Export</button></div>"
+    +"</div>"
+    +"<div class='g3' style='margin-bottom:14px'>"
+    +"<div class='met'><div class='ml'>Shifts</div><div class='mv'>"+sh+"</div></div>"
+    +"<div class='met'><div class='ml'>Days off</div><div class='mv'>"+(7-sh)+"</div></div>"
+    +"<div class='met'><div class='ml'>Venues</div><div class='mv'>"+vns.length+"</div></div>"
+    +"</div><div class='sec'>My week</div>"+rows
+    +"<div style='margin-top:10px;padding:10px 12px;background:#eff6ff;border-radius:8px;font-size:12px;color:#1d4ed8'>"
+    +"To request changes, use the Swap Shifts tab.</div>");
+}
+
+function expMyCal(){
+  var cs=STAFF.find(function(s){return s.id===curId;});
+  var lines=DAYS.map(function(d,di){return d+": "+((ROSTER[curId]&&ROSTER[curId][di])||"OFF");}).join("\n");
+  var a=document.createElement("a");
+  a.href="data:text/plain;charset=utf-8,"+encodeURIComponent(cs.name+"'s Roster\nWeek of 18-24 May\n\n"+lines);
+  a.download=cs.name.toLowerCase().replace(/ /g,"-")+"-roster.txt";a.click();
+}
+
+function showPanel(t){
+  document.getElementById("lmode").style.display="none";
+  document.getElementById("lpanel-mgr").style.display=t==="mgr"?"block":"none";
+  document.getElementById("lpanel-stf").style.display=t==="stf"?"block":"none";
+}
+
+function buildPkr(){
+  document.getElementById("spkr").innerHTML=STAFF.map(function(s){
+    return "<button class='spkbtn' onclick='loginStf(\""+s.id+"\")'>" + s.name + "</button>";
+  }).join("");
+}
+
+function backL(){
+  pe="";spe="";updPD();updSPD();
+  document.getElementById("lmode").style.display="block";
+  document.getElementById("lpanel-mgr").style.display="none";
+  document.getElementById("lpanel-stf").style.display="none";
+  document.getElementById("stf-pin-panel").style.display="block";
+  document.getElementById("stf-name-panel").style.display="none";
+  document.getElementById("perr").style.display="none";
+  document.getElementById("sperr").style.display="none";
+}
+
+function pp(k){
+  if(k==="back")pe=pe.slice(0,-1);
+  else if(k==="clear")pe="";
+  else if(pe.length<4)pe+=k;
+  updPD();document.getElementById("perr").style.display="none";
+  if(pe.length===4){
+    if(pe===MPIN){mode="manager";curId="";enterApp();}
+    else{document.getElementById("perr").style.display="block";pe="";updPD();}
+  }
+}
+
+function spp(k){
+  if(k==="back")spe=spe.slice(0,-1);
+  else if(k==="clear")spe="";
+  else if(spe.length<4)spe+=k;
+  updSPD();document.getElementById("sperr").style.display="none";
+  if(spe.length===4){
+    if(spe===SPIN){
+      document.getElementById("stf-pin-panel").style.display="none";
+      document.getElementById("stf-name-panel").style.display="block";
+    } else {
+      document.getElementById("sperr").style.display="block";spe="";updSPD();
+    }
+  }
+}
+
+function updPD(){for(var i=0;i<4;i++){var d=document.getElementById("pd"+i);if(d)d.className="pdot"+(i<pe.length?" filled":"");}}
+function updSPD(){for(var i=0;i<4;i++){var d=document.getElementById("spd"+i);if(d)d.className="pdot"+(i<spe.length?" filled":"");}}
+
+function loginStf(id){mode="staff";curId=id;enterApp();}
+
+function enterApp(){
+  document.getElementById("lscrn").style.display="none";
+  document.getElementById("app").style.display="block";
+  var cs=mode==="manager"?{name:"Manager"}:STAFF.find(function(s){return s.id===curId;});
+  document.getElementById("uav").textContent=mode==="manager"?"MG":cs.name.slice(0,2).toUpperCase();
+  document.getElementById("uname").textContent=mode==="manager"?"Manager":cs.name;
+  buildNav();
+  goTab(mode==="manager"?"roster":"mysch");
+}
+
+function logout(){
+  if(clkTmr)clearTimeout(clkTmr);
+  document.getElementById("app").style.display="none";
+  document.getElementById("lscrn").style.display="flex";
+  backL();buildPkr();
+}
+
+boot();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+</body>
+</html>
